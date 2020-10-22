@@ -1,79 +1,65 @@
-"""Setup for oka package."""
-import setuptools
+from setuptools import setup, find_packages
+import pathlib
 
-NAME = "oka"
+here = pathlib.Path(__file__).parent.resolve()
+long_description = (here / 'README.md').read_text(encoding='utf-8')
 
+setup(
+    name='oka',  # Required
+    version='0.1',  # Required
+    description='Client for OKA repository',  # Optional
+    long_description=long_description,  # Optional
+    long_description_content_type='text/markdown',  # Optional
+    url='https://github.com/rabizao/oka',  # Optional
+    author='Rafael A. Bizao',  # Optional
+    author_email='rabizao@gmail.com',  # Optional
+    # For a list of valid classifiers, see https://pypi.org/classifiers/
+    classifiers=[  # Optional
+        # How mature is this project? Common values are
+        #   3 - Alpha
+        #   4 - Beta
+        #   5 - Production/Stable
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Build Tools',
+        'License :: OSI Approved :: GNU General Public License (GPL)',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3 :: Only',
+    ],
 
-VERSION = '0.0.1'
+    keywords='data, repository, archive, data science, machine learning',  # Optional
+    packages=find_packages(where='oka'),  # Required
+    python_requires='>=3.7, <4',
 
+    install_requires=['requests', 'python-dotenv'],  # Optional
 
-AUTHOR = 'Rafael A. Bizao, Davi Pereira-Santos'
+    # List additional groups of dependencies here (e.g. development
+    # dependencies). Users will be able to install these using the "extras"
+    # syntax, for example:
+    #
+    #   $ pip install sampleproject[dev]
+    #
+    extras_require={  # Optional
+        'dev': ['check-manifest'],
+        'test': ['coverage'],
+    },
 
-
-AUTHOR_EMAIL = 'rabizao@gmail.com'
-
-
-DESCRIPTION = 'Client to interact with OKA repository'
-
-
-with open('README.md', 'r') as fh:
-    LONG_DESCRIPTION = fh.read()
-
-
-LICENSE = 'GPL3'
-
-
-URL = 'https://github.com/rabizao/oka'
-
-
-DOWNLOAD_URL = 'https://github.com/automated-data-science/oka/releases'
-
-
-CLASSIFIERS = ['Intended Audience :: Science/Research',
-               'Intended Audience :: Developers',
-               'License :: OSI Approved :: GPL3 License',
-               'Natural Language :: English',
-               'Programming Language :: Python',
-               'Topic :: Software Development',
-               'Topic :: Scientific/Engineering',
-               'Operating System :: OS Independent',
-               'Programming Language :: Python :: 3.6',
-               'Programming Language :: Python :: 3.7',
-               'Programming Language :: Python :: 3.8']
-
-SETUP_REQUIRES = ['flake8', 'autopep8', 'wheel']
-
-
-INSTALL_REQUIRES = [
-    'aiuna @ git+https://github.com/davips/aiuna.git@master#egg=package1.0',
-    'tatu @ git+https://github.com/davips/tatu.git@master#egg=package1.0',
-    'transf @ git+https://github.com/davips/transf.git@master#egg=package1.0',
-    'cruipto @ git+https://github.com/davips/cruipto.git@master#egg=package1.0',
-    'python-dotenv', 'requests'
-]
-
-
-EXTRAS_REQUIRE = {
-    'tests': [
-        'pytest',
-        'pytest-cov',
-    ]
-}
-
-setuptools.setup(
-    name=NAME,
-    version=VERSION,
-    author=AUTHOR,
-    author_email=AUTHOR_EMAIL,
-    description=DESCRIPTION,
-    long_description=LONG_DESCRIPTION,
-    long_description_content_type="text/markdown",
-    license=LICENSE,
-    url=URL,
-    download_url=DOWNLOAD_URL,
-    packages=setuptools.find_packages(),
-    classifiers=CLASSIFIERS,
-    setup_requires=SETUP_REQUIRES,
-    install_requires=INSTALL_REQUIRES,
-    extras_require=EXTRAS_REQUIRE
+    # To provide executable scripts, use entry points in preference to the
+    # "scripts" keyword. Entry points provide cross-platform support and allow
+    # `pip` to create the appropriate form of executable for the target
+    # platform.
+    #
+    # For example, the following would provide a command called `sample` which
+    # executes the function `main` from this package when invoked:
+    # entry_points={  # Optional
+    #     'console_scripts': [
+    #         'sample=sample:main',
+    #     ],
+    # },
+    project_urls={  # Optional
+        'Bug Reports': 'https://github.com/rabizao/oka/issues',
+        'Source': 'https://github.com/rabizao/oka',
+    },
 )
