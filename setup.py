@@ -11,8 +11,8 @@ setup(
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional
     url='https://github.com/rabizao/oka',  # Optional
-    author='Rafael A. Bizao',  # Optional
-    author_email='rabizao@gmail.com',  # Optional
+    author='Rafael A. Bizao, Davi P. dos Santos',  # Optional
+    # author_email='rabizao@gmail.com',  # Optional
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[  # Optional
         # How mature is this project? Common values are
