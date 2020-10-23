@@ -6,8 +6,7 @@ from dotenv import load_dotenv
 
 
 def get_token(url):
-    basedir = os.path.abspath(os.path.dirname(__file__))
-    load_dotenv(os.path.join(basedir, '.env'))
+    load_dotenv('.env')
     token = os.environ.get('TOKEN')
     if not token:
         username = input("Username to connect to OKA: ")
@@ -18,8 +17,8 @@ def get_token(url):
             token = response.json()['access_token']
         except Exception as e:
             print(f"Error: {str(e)}")
-            exit()
-        f = open(f"{basedir}/.env", "w")    
+            return None
+        f = open(".env", "w")    
         f.write(f"TOKEN={token}")
         f.close()
     return token
