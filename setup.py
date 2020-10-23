@@ -6,13 +6,13 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='oka',  # Required
-    version='0.1',  # Required
+    version='0.1alpha',  # Required
     description='Client for OKA repository',  # Optional
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional
     url='https://github.com/rabizao/oka',  # Optional
     author='Rafael A. Bizao, Davi P. dos Santos',  # Optional
-    # author_email='email@email.com',  # Optional
+    author_email='rabizao@gmail.com',  # Optional
     # For a list of valid classifiers, see https://pypi.org/classifiers/
     classifiers=[  # Optional
         # How mature is this project? Common values are
