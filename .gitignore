@@ -25,3 +25,6 @@ logs/
 migrations/
 oka/.env
 .env
+
+# Local config
+.env
