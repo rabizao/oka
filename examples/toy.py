@@ -1,4 +1,4 @@
 from oka.io import get
 
-data = get("1ChhdqrgxGOd0TPsrgBGq4n")
-print(data.X)
+data = get("06nk9kyCi8ywesyM8Pjw1jv")
+print(data)
