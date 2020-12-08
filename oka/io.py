@@ -4,15 +4,13 @@ from oka.auth import get_token
 from tatu.okast import OkaSt
 
 
-# def get(uuid, url='http://data.analytics.icmc.usp.br'):
-def get(uuid, url='http://localhost:5000'):
+def get(uuid, url='http://data.analytics.icmc.usp.br'):
     token = get_token(url=url)
     storage = OkaSt(token=token, url=url, close_when_idle=True)
     return storage.fetch(uuid, lazy=False)  # TODO make laziness work
 
 
-# def push(data, url='http://data.analytics.icmc.usp.br'):
-def send(data, url='http://localhost:5000'):
+def send(data, url='http://data.analytics.icmc.usp.br'):
     # TODO: how to solve post stored but data failed: check if orphan post exist, and delete it from the begining?
     token = get_token(url=url)
     headers = {'Authorization': 'Bearer ' + token}
