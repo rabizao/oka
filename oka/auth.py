@@ -14,6 +14,9 @@ def get_token(url):
         data={"username": username, "password": password}
         try:
             response = requests.post(f"{url}/api/auth/login", json=data)
+            if response.status_code == 422:
+                print(response.json()['errors'])
+                exit()
             token = response.json()['access_token']
         except Exception as e:
             print(f"Error: {str(e)}")
