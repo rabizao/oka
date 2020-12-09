@@ -23,7 +23,8 @@ def send(data, url='http://data.analytics.icmc.usp.br', name=None, description="
     token = get_token(url=url)
     if token:
         # Create inactive Post.
-        name = name or "→".join(map(lambda x: x[:3], data.history ^ "name"))
+        name = name or "→".join(x[:3] for x in data.history ^ "name" if x[:3] not in ["B", "Rev", "In", "Aut", "E"])
+
         headers = {'Authorization': 'Bearer ' + token}
         info = {
             "step_ids": [step.id for step in list(data.history)],
