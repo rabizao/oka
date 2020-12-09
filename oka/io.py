@@ -7,15 +7,15 @@ from tatu.okast import OkaSt
 def get(uuid, url='http://data.analytics.icmc.usp.br'):
     token = get_token(url=url)
     if token:
-        # try:
-        storage = OkaSt(token=token, url=url, close_when_idle=True)
-        data = storage.fetch(uuid, lazy=False)  # TODO make laziness work
-        if data is None:
-            raise Exception(f"Data {uuid} not found.")
-        return data
-    # except Exception as e:
-    #     print("oka warning:", str(e))
-    #     return None
+        try:
+            storage = OkaSt(token=token, url=url, close_when_idle=True)
+            data = storage.fetch(uuid, lazy=False)  # TODO make laziness work
+            if data is None:
+                raise Exception(f"Data {uuid} not found.")
+            return data
+        except Exception as e:
+            print("oka warning:", str(e))
+            return None
 
 
 def send(data, url='http://data.analytics.icmc.usp.br', name=None, description="No description"):
