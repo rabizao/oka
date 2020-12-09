@@ -11,7 +11,7 @@ from oka.io import get, send
 setcache("mysql://tatu:kururu@localhost/tatu")
 
 # data = File("iris.arff").data
-data = Dataset("abalone").data
+data = Dataset("iris").data
 print("id:", data.id, "X shape", data.X.shape)
 print("X 1st row:\t\t\t", data.X[:1])
 print()
