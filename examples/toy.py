@@ -3,13 +3,13 @@ from kururu.tool.communication.lazycache import Cache
 from kururu.tool.enhancement.attribute.binarize import Binarize
 from kururu.tool.enhancement.instance.sampling.over.rnd import ROS_
 from oka.io import get, send
-from tatu.okast import OkaSt
-from tatu.sql.mysql import MySQL
+from tatu import Tatu
 
-data = Dataset("abalone").data
+data = Dataset("iris").data
 print("X 1st row:", data.X[:1])
 
-data = data >> Binarize * Cache(MySQL("tatu:tatu@localhost/tatu")) * ROS_
+data = data >> Binarize * Cache(Tatu("mysql://tatu:kururu@localhost/tatu", threaded=False)) * ROS_
+# data = data >> Binarize * ROS_
 print("X 1st row:", data.X[:1])
 
 send(data, url="http://localhost:5000")
