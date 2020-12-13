@@ -27,7 +27,7 @@ def send(data, url='http://data.analytics.icmc.usp.br', name=None, description="
 
         headers = {'Authorization': 'Bearer ' + token}
         info = {
-            "step_ids": [step.id for step in list(data.history)],
+            "past": list(data.past.keys()),
             "nattrs": data.X.shape[1],
             "ninsts": data.X.shape[0]
         }
