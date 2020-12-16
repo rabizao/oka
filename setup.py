@@ -6,7 +6,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='oka',  # Required
-    version='0.3alpha',  # Required
+    version='0.4alpha',  # Required
     description='Client for OKA repository',  # Optional
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional
