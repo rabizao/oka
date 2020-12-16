@@ -6,7 +6,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='oka',  # Required
-    version='0.1alpha',  # Required
+    version='0.3alpha',  # Required
     description='Client for OKA repository',  # Optional
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional
@@ -33,7 +33,7 @@ setup(
     packages=find_packages(where='oka'),  # Required
     python_requires='>=3.7, <4',
 
-    install_requires=['python-dotenv', 'celery', 'flask', 'flask-cors', 'flask-mail', 'flask-migrate', 'flask-smorest', 'flask-sqlalchemy', 'marshmallow', 'redis'],  # Optional
+    install_requires=['python-dotenv', 'celery', 'flask', 'flask-cors', 'flask-mail', 'flask-migrate', 'flask-smorest', 'flask-sqlalchemy', 'marshmallow', 'redis', 'kururu', 'tamandua'],  # Optional
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
