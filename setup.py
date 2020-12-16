@@ -63,3 +63,5 @@ setup(
         'Source': 'https://github.com/rabizao/oka',
     },
 )
+
+package_dir = {'': 'oka'}  # For IDEs like Intellij to recognize the package.
