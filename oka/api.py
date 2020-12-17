@@ -1,5 +1,7 @@
 import requests as req
 
+default_url = 'http://data.analytics.icmc.usp.br'
+
 
 def j(r):
     """Helper function needed because flask test_client() provide json as a property(?), not as a method."""

@@ -5,7 +5,6 @@ from oka.api import requests, j
 
 
 def get_token(url):
-    from oka import oka
     tries = 0
     ntries = 3
 

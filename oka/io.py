@@ -1,13 +1,11 @@
-from oka.api import requests
+from oka.api import requests, default_url
+from oka.client import oka
+from oka.auth import get_token
 from tatu.okast import OkaSt
-
-default_url = 'http://data.analytics.icmc.usp.br'
 
 
 def get(uuid, url=default_url):
-    from oka import oka
-    from oka.auth import get_token
-    # TODO: Acho que faz mais sentido a verificacao seguinte ser feita dentro do OkaSt. Dessa maneira, 
+    # TODO: Acho que faz mais sentido a verificacao seguinte ser feita dentro do OkaSt. Dessa maneira,
     # as funcoes get_token(url), j(r) e requests(method, url, **kwargs) ficariam la e seriam importadas 
     # aqui para serem usadas em rotas que nao passam pelo OkaSt, como a de enviar arff direto. Alem disso
     # nao ficariam duplicadas. Atualmente se passar token=None para o OkaSt quebra
@@ -20,9 +18,6 @@ def get(uuid, url=default_url):
 
 
 def send(data, url=default_url, name=None, description="No description"):
-    from oka import oka
-    from oka.auth import get_token
-    from tatu.okast import OkaSt
     if not oka.token:
         print("Please login before.")
         oka.token = get_token(oka.url)
