@@ -44,15 +44,13 @@ class Oka:
         return get(other, self.url)
 
     # noinspection PyArgumentList
-    def __call__(self, id=None, url=None, token=None):
+    def __call__(self, id=None, url=None):
         from oka.io import get  # Import is here just to avoid being directly importable from oka module.
         if url is None:
             url = self.url
-        if token is None:
-            token = self.token
         if id is None:
             return self.__class__(url=url)
-        return get(id, url, token)
+        return get(id, url)
 
 
 oka = Oka()

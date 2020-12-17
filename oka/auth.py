@@ -18,6 +18,6 @@ def get_token(url):
             return j(response)['access_token']
         else:
             if tries < ntries:
-                print("Authentication error. Please try again.")
-    print("Authentication failed.")
+                print("[Error] Authentication error. Please try again.")
+    print("[Error] Authentication failed.")
     exit()

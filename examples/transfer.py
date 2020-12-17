@@ -4,6 +4,7 @@ from oka import oka
 from aiuna.step.dataset import dataset
 
 oka.url = "http://localhost:5000"
+oka.token = "tokenhere"
 data = dataset.data
 did = data.id
 
