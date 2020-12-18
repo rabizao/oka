@@ -30,15 +30,15 @@ def send(data, url=default_url, name=None, description="No description"):
     # TODO: how to solve post stored but data failed: check if orphan post exist, and delete it from the begining?
 
     # Create inactive Post.
-    name = name or "→".join(x[:3] for x in data.history ^ "name" if x[:3] not in [
-        "B", "Rev", "In", "Aut", "E"])
+    name = name or "→".join(
+        x[:3] for x in data.history ^ "name" if x[:3] not in ["B", "Rev", "In", "Aut", "E"]
+    )
     info = {
         "past": list(data.past.keys()),
         "nattrs": data.X.shape[1],
         "ninsts": data.X.shape[0]
     }
-    dic = {'data_uuid': data.id, "info": info,
-           "name": name, "description": description}
+    dic = {'data_uuid': data.id, "info": info, "name": name, "description": description}
     response = requests("put", url + "/api/posts", json=dic)
     try:
         storage = OkaSt(token=oka.token, url=url, close_when_idle=True)

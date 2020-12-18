@@ -1,4 +1,3 @@
-import os
 from getpass import getpass
 
 from oka.api import requests, j
@@ -14,7 +13,7 @@ def get_token(url):
         password = getpass("Password to connect to OKA: ")
         data = {"username": username, "password": password}
         response = requests("post", f"{url}/api/auth/login", json=data)
-        if response and 'access_token' in j(response):            
+        if response and 'access_token' in j(response):
             return j(response)['access_token']
         else:
             if tries < ntries:
