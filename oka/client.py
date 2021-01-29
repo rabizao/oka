@@ -21,7 +21,7 @@
 
 from dataclasses import dataclass
 
-from oka.api import default_url
+from tatu.okast import default_url
 
 
 @dataclass
@@ -36,12 +36,12 @@ class Oka:
         """Can receive a Data object or a tuple (data, name, description)."""
         from oka.io import send  # Import is here just to avoid being directly importable from oka module.
         if isinstance(other, tuple):
-            send(other[0], self.url, *other[1:])
-        send(other, self.url)
+            send(other[0], self.url, self.token, *other[1:])
+        send(other, self.url, self.token)
 
     def __rmatmul__(self, other):
         from oka.io import get  # Import is here just to avoid being directly importable from oka module.
-        return get(other, self.url)
+        return get(other, self.url, self.token)
 
     # noinspection PyArgumentList
     def __call__(self, id=None, url=None):
@@ -50,7 +50,7 @@ class Oka:
             url = self.url
         if id is None:
             return self.__class__(url=url)
-        return get(id, url)
+        return get(id, url, self.token)
 
 
 oka = Oka()
