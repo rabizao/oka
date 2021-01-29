@@ -38,15 +38,18 @@ def send(data, url=default_url, name=None, description="No description"):
         "nattrs": data.X.shape[1],
         "ninsts": data.X.shape[0]
     }
-    dic = {'data_uuid': data.id, "info": info, "name": name, "description": description}
-    response = requests("put", url + "/api/posts", json=dic)
+    # print("hh",data.history)
+    dic = {'data_uuid': data.id, "info": info,
+           "name": name, "description": description}
+
     try:
+        requests("put", url + "/api/posts", json=dic)
         storage = OkaSt(token=oka.token, url=url, close_when_idle=True)
         storage.store(data, lazy=False)
+        # Activate Post.
+        requests("put", url + "/api/posts/activate",
+                 json={'data_uuid': data.id})
     except DuplicateEntryException as e:
         print(f"[Error] You have already uploaded the dataset with OID {e}.")
 
-    # Activate Post.
-    response = requests("put", url + "/api/posts/activate",
-                        json={'data_uuid': data.id})
     return True

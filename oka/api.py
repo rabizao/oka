@@ -12,11 +12,10 @@ def requests(method, url, **kwargs):
     from oka import oka
     from oka.auth import get_token
     headers = {'Authorization': 'Bearer ' + oka.token} if oka.token else {}
-    r = getattr(req, method)(url, headers=headers, **kwargs)
+    r = getattr(req, method)(url, headers=headers, **kwargs)    
     if r.status_code == 401:
         print("Please login before.")
         oka.token = get_token(oka.url)
-        r = getattr(req, method)(url, headers=headers, **kwargs)
-    if r.ok:
+        requests(method, url, **kwargs)
+    else:
         return r
-    # raise Exception(j(r)["errors"]["json"])
