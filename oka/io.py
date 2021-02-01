@@ -37,8 +37,7 @@ def send(data, url=default_url, token=None, name=None, description="No descripti
         okast = OkaSt(token=token, url=url, close_when_idle=True)
         okast.request("/api/posts", "put", json=dic)
         oka.token = okast.token
-        storage = okast
-        storage.store(data, lazy=False)
+        okast.store(data, lazy=False)
         # Activate Post.
         okast.request("/api/posts/activate", "put", json={'data_uuid': data.id})
     except DuplicateEntryException as e:
