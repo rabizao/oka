@@ -19,7 +19,7 @@ d = did @ oka
 print(d.id)
 # ...
 
-# Methods approach.
+# Function approach.
 from oka.io import send, get
 send(data, url="http://localhost:5000")
 d = get(did, url="http://localhost:5000")
