@@ -29,3 +29,4 @@ oka/.env
 # Local config
 .env
 *.iml
+.idea
