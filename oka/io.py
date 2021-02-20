@@ -25,9 +25,11 @@ def send(data, url=default_url, token=None, name=None, description="No descripti
         x[:3] for x in data.history ^ "name" if x[:3] not in ["B", "Rev", "In", "Aut", "E"]
     )
     info = {
-        "past": list(data.past),
         "nattrs": data.X.shape[1],
-        "ninsts": data.X.shape[0]
+        "ninsts": data.X.shape[0],
+        "ntargs": data.Y.shape[1] if len(data.Y.shape) > 1 else 1,
+        "nclasses": len(set(data.y)),
+        "past": list(data.past)
     }
     # print("hh",data.history)
     dic = {'data_uuid': data.id, "info": info,
