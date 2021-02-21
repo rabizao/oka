@@ -7,7 +7,7 @@ import sys
 from tatu.auth import gettoken
 
 oka.url = "http://localhost:5000"
-oka.token = gettoken(*sys.argv[1:]) if len(sys.argv) > 1 else "no token yet"
+oka.token = gettoken(oka.url, *sys.argv[1:]) if len(sys.argv) > 1 else "no token yet"
 data = dataset.data
 did = data.id
 
