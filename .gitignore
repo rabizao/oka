@@ -30,3 +30,4 @@ oka/.env
 .env
 *.iml
 .idea
+.run
