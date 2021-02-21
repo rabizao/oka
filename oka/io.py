@@ -31,9 +31,7 @@ def send(data, url=default_url, token=None, name=None, description="No descripti
         "nclasses": len(set(data.y)),
         "past": list(data.past)
     }
-    # print("hh",data.history)
-    dic = {'data_uuid': data.id, "info": info,
-           "name": name, "description": description}
+    dic = {'data_uuid': data.id, "info": info, "name": name, "description": description}
 
     try:
         okast = OkaSt(token=token, url=url, close_when_idle=True)
