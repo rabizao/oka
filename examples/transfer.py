@@ -2,9 +2,12 @@
 
 from oka import oka
 from aiuna.step.dataset import dataset
+import sys
+
+from tatu.auth import gettoken
 
 oka.url = "http://localhost:5000"
-oka.token = "tokenhere"
+oka.token = gettoken(*sys.argv[1:]) if len(sys.argv) > 1 else "no token yet"
 data = dataset.data
 did = data.id
 
