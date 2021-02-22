@@ -1,3 +1,6 @@
+![test](https://github.com/rabizao/oka/workflows/test/badge.svg)
+[![codecov](https://codecov.io/gh/rabizao/oka/branch/main/graph/badge.svg)](https://codecov.io/gh/rabizao/oka)
+
 # Client for OKA repository
 
 Install
@@ -13,22 +16,20 @@ Install
 Usage
 ---
 
+**Transfering data**
 <details>
-<summary>Transfering data</summary>
 <p>
 
 ```python3
 
-# Equivalent forms to use the oka tools:
-from oka import *  # ->        implicit (methods or object)
-# import oka  #  ->               implicit (methods or object) and shorter, but not good for code linter
-# from oka import get, send  #    explicit (methods)
-# from oka import oka  #  ->      explicit (object)
-# import oka as o  #  ->          explicit namespace for methods or object
-
+from oka import oka
 from aiuna.step.dataset import dataset
+import sys
+
+from tatu.auth import gettoken
 
 oka.url = "http://localhost:5000"
+oka.token = gettoken(oka.url, *sys.argv[1:]) if len(sys.argv) == 3 else "no token yet"
 data = dataset.data
 did = data.id
 
@@ -36,35 +37,35 @@ did = data.id
 oka << data
 d = oka(did)
 print(d.uuid)
+"""
+Please login before.
+Username to connect to OKA: 00ptEh8jeD4BOtwv0thXenF
+"""
 ```
 
-```
-Username to connect to OKA: xxxxx
-Password: xxxx
-00ptEh8jeD4BOtwv0thXenF
-```
 ```python3
 
 # Object "@" approach.
 d = did @ oka
 print(d.id)
+"""
+00ptEh8jeD4BOtwv0thXenF
+"""
 ```
 
-```
-00ptEh8jeD4BOtwv0thXenF
-```
 ```python3
 
-# Methods approach.
+# Function approach.
+from oka.io import send, get
 send(data, url="http://localhost:5000")
 d = get(did, url="http://localhost:5000")
 print(d.uuid)
+"""
+[Error] You have already uploaded the dataset with OID 00ptEh8jeD4BOtwv0thXenF.
+00ptEh8jeD4BOtwv0thXenF
+"""
 ```
 
-```
-oka warning: {'data_uuid': 'Error! Dataset already uploaded'}
-00ptEh8jeD4BOtwv0thXenF
-```
 
 </p>
 </details>

@@ -1,3 +1,6 @@
+![test](https://github.com/rabizao/oka/workflows/test/badge.svg)
+[![codecov](https://codecov.io/gh/rabizao/oka/branch/main/graph/badge.svg)](https://codecov.io/gh/rabizao/oka)
+
 # Client for OKA repository
 
 Install
