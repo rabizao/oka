@@ -3,10 +3,10 @@ import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
-
+VERSION = "0.2102.1"
 setup(
     name='oka',  # Required
-    version='0.5alpha',  # Required
+    version=VERSION,  # Required
     description='Client for OKA repository',  # Optional
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional
