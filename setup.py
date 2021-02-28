@@ -2,7 +2,7 @@ import setuptools
 
 NAME = "oka"
 
-VERSION = "0.2102.6"
+VERSION = "0.2102.7"
 
 AUTHOR = 'Rafael A. Bizao, Davi P. dos Santos'
 
