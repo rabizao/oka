@@ -3,7 +3,7 @@ import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
-VERSION = "0.2102.2"
+VERSION = "0.2102.3"
 setup(
     name='oka',  # Required
     version=VERSION,  # Required
@@ -64,4 +64,4 @@ setup(
     },
 )
 
-package_dir = {'': 'oka'}  # For IDEs like Intellij to recognize the package.
+package_dir = {'': '.'}  # For IDEs like Intellij to recognize the package.
