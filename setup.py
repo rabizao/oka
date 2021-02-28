@@ -1,24 +1,25 @@
-from setuptools import setup, find_packages
-import pathlib
+import setuptools
 
-here = pathlib.Path(__file__).parent.resolve()
-long_description = (here / 'README.md').read_text(encoding='utf-8')
-VERSION = "0.2102.5"
-setup(
-    name='oka',  # Required
-    version=VERSION,  # Required
-    description='Client for OKA repository',  # Optional
-    long_description=long_description,  # Optional
-    long_description_content_type='text/markdown',  # Optional
-    url='https://github.com/rabizao/oka',  # Optional
-    author='Rafael A. Bizao, Davi P. dos Santos',  # Optional
-    author_email='rabizao@gmail.com',  # Optional
-    # For a list of valid classifiers, see https://pypi.org/classifiers/
-    classifiers=[  # Optional
-        # How mature is this project? Common values are
-        #   3 - Alpha
-        #   4 - Beta
-        #   5 - Production/Stable
+NAME = "oka"
+
+VERSION = "0.2102.6"
+
+AUTHOR = 'Rafael A. Bizao, Davi P. dos Santos'
+
+AUTHOR_EMAIL = 'rabizao@gmail.com'
+
+DESCRIPTION = 'Haskell-like intervals for Python'
+
+with open('README.md', 'r') as fh:
+    LONG_DESCRIPTION = fh.read()
+
+LICENSE = 'GPL3'
+
+URL = 'https://github.com/davips/lange'
+
+DOWNLOAD_URL = 'https://github.com/davips/lange/releases'
+
+CLASSIFIERS = [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
@@ -27,37 +28,37 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3 :: Only',
-    ],
+]
 
-    keywords='data, repository, archive, data science, machine learning',  # Optional
-    packages=find_packages(where='oka'),  # Required
-    python_requires='>=3.7, <4',
 
-    install_requires=['requests', 'python-dotenv', 'tatu'],  # Optional
+INSTALL_REQUIRES = [
+    'requests', 'python-dotenv', 'tatu'
+]
 
-    # List additional groups of dependencies here (e.g. development
-    # dependencies). Users will be able to install these using the "extras"
-    # syntax, for example:
-    #
-    #   $ pip install sampleproject[dev]
-    #
-    extras_require={  # Optional
+EXTRAS_REQUIRE = {
         'dev': ['check-manifest'],
         'test': ['coverage'],
-    },
+}
 
-    # To provide executable scripts, use entry points in preference to the
-    # "scripts" keyword. Entry points provide cross-platform support and allow
-    # `pip` to create the appropriate form of executable for the target
-    # platform.
-    #
-    # For example, the following would provide a command called `sample` which
-    # executes the function `main` from this package when invoked:
-    # entry_points={  # Optional
-    #     'console_scripts': [
-    #         'sample=sample:main',
-    #     ],
-    # },
+SETUP_REQUIRES = ['wheel']
+
+setuptools.setup(
+    name=NAME,
+    version=VERSION,
+    author=AUTHOR,
+    author_email=AUTHOR_EMAIL,
+    classifiers=CLASSIFIERS,
+    description=DESCRIPTION,
+    download_url=DOWNLOAD_URL,
+    extras_require=EXTRAS_REQUIRE,
+    install_requires=INSTALL_REQUIRES,
+    long_description=LONG_DESCRIPTION,
+    long_description_content_type="text/markdown",
+    license=LICENSE,
+    packages=setuptools.find_packages(),
+    setup_requires=SETUP_REQUIRES,
+    url=URL,
+    keywords='data, repository, archive, data science, machine learning',  # Optional
     project_urls={  # Optional
         'Bug Reports': 'https://github.com/rabizao/oka/issues',
         'Source': 'https://github.com/rabizao/oka',
