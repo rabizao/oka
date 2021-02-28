@@ -3,7 +3,7 @@ import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
-VERSION = "0.2102.4"
+VERSION = "0.2102.5"
 setup(
     name='oka',  # Required
     version=VERSION,  # Required
