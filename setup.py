@@ -8,7 +8,7 @@ AUTHOR = 'Rafael A. Bizao, Davi P. dos Santos'
 
 AUTHOR_EMAIL = 'rabizao@gmail.com'
 
-DESCRIPTION = 'Haskell-like intervals for Python'
+DESCRIPTION = 'Python client for oka'
 
 with open('README.md', 'r') as fh:
     LONG_DESCRIPTION = fh.read()
