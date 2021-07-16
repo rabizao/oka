@@ -1,3 +1,16 @@
-site_name: OKA Documentation
+site_name: OKA Client
+site_description: OKA Client. Client built to interact with OKA Repository
+site_url: https://rabizao.github.io/oka/
 theme:
   name: material
+nav:
+- OKA Client: index.md
+- Data operations: data_operations/index.md
+- Security:
+  - security/index.md
+  - security/generate_token.md
+  - security/invalidate_all_tokens.md
+- IO: 
+  - io/index.md
+  - io/get.md
+  - io/send.md
