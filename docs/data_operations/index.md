@@ -16,8 +16,7 @@ data = new_data(
         y=[0, 1, 1]
     )
 
-result = client.send(data)
-print(result.id)
+print(data.X)
 ```
 
 ### From ARFF File
