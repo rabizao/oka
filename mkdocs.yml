@@ -4,8 +4,8 @@ site_url: https://rabizao.github.io/oka/
 theme:
   name: material
 nav:
-- OKA Client: index.md
-- Data operations: data_operations/index.md
+- index.md
+- Data Operations: data_operations/index.md
 - Security:
   - security/index.md
   - security/generate_token.md
