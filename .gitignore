@@ -31,3 +31,4 @@ oka/.env
 *.iml
 .idea
 .run
+.venv
