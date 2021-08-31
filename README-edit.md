@@ -2,6 +2,7 @@
 [![codecov](https://codecov.io/gh/rabizao/oka/branch/main/graph/badge.svg)](https://codecov.io/gh/rabizao/oka)
 
 # Client for OKA repository
+Docs: [API](https://rabizao.github.io/oka)
 
 Install
 -------
@@ -15,5 +16,7 @@ Install
 
 Usage
 ---
+
+**Transfering data**
 
 <<transfer>>
