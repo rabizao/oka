@@ -32,7 +32,7 @@ CLASSIFIERS = [
 
 
 INSTALL_REQUIRES = [
-    'requests', 'python-dotenv', 'tatu'
+    'requests', 'python-dotenv', 'idict'
 ]
 
 EXTRAS_REQUIRE = {
