@@ -18,13 +18,14 @@
 #  You should have received a copy of the GNU General Public License
 #  along with oka.  If not, see <http://www.gnu.org/licenses/>.
 #
-import pickle
 from dataclasses import dataclass
+from typing import Union
 
 import requests as req
 from idict import idict
-from idict.core.compression import unpack, pack
+from idict.data.compression import unpack, pack
 from idict.persistence.cache import Cache
+from pandas import DataFrame
 
 from oka.config import default_url
 
@@ -99,20 +100,31 @@ class Oka(Cache):
         # if not isinstance(value, dict) or "ids" not in value:
         #     raise Exception("dict containing key 'ids' expected.", type(value), value)
 
-    def send(self, d, name=None, description="No description"):
+    def send(self, d: Union[DataFrame, idict], name=None, description=None):
         # Create inactive Post.
         # name = name or "→".join(
         #     x[:3] for x in data.history ^ "name" if x[:3] not in ["B", "Rev", "In", "Aut", "E"]
         # )
-        url = f"/api/item/{d.id}"
+        if isinstance(d, DataFrame):
+            d = idict(df=d)
+        if name:
+            d["_name"] = name
+        if description:
+            d["_description"] = description
+        d.show()
+
+        id = "_" + d.id[1:] if len(d.ids) == 1 else d.id
+        url = f"/api/item/{id}"
         content = pack({"ids": d.ids})
-        ret = j(self.request(url, "post", content=content))["success"]
+        # TODO: se usar pack, aproveitar de d.blobs
+        ret = j(self.request(url, "post", files={"file": content}))["success"]
         if not ret:
             print("Problems uploading")
             return False
         for k, v in d.ids.items():
             content = pack(d[k])
-            ret = ret and j(self.request(url, "post", json={"kwargs": {"id": v, "value": content}}))["success"]
+            url = f"/api/item/{v}"
+            ret = ret and j(self.request(url, "post", files={"file": content}))["success"]
 
         # except DuplicateEntryException as e:
         #     if "OKATESTING" not in os.environ:
