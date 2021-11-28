@@ -85,11 +85,16 @@ class Oka(Cache):
             print(msg)
             raise Exception(msg)
 
-    def getitem(self, id):
+    def get(self, id):
+        """Get a dataframe, callable or idict from server
+
+        On single-valued idicts, content (dataframe or callable) take precedence and is returned directly."""
         url = f"/api/item/{id}"
-        value = self.request(url, "get")
-        if not value:
+        if not (response := self.request(url, "get")):
             raise Exception(f"[Error] Data with OID {id} was not found.")
+        value = unpack(response.content)
+        if isinstance(value, DataFrame) or callable(value):
+            return value
         dic = {}
         for k, v in value["ids"].items():
             url = f"/api/sync?id={id}&fetch=true"
@@ -101,44 +106,48 @@ class Oka(Cache):
         #     raise Exception("dict containing key 'ids' expected.", type(value), value)
 
     def send(self, d: Union[DataFrame, idict], name=None, description=None):
+        """Send a dataframe, callable or idict to server"""
         # Create inactive Post.
         # name = name or "→".join(
         #     x[:3] for x in data.history ^ "name" if x[:3] not in ["B", "Rev", "In", "Aut", "E"]
         # )
-        if isinstance(d, DataFrame):
+        if callable(d) or isinstance(d, DataFrame):
             d = idict(df=d)
         if name:
             d["_name"] = name
         if description:
             d["_description"] = description
-        d.show()
 
         id = "_" + d.id[1:] if len(d.ids) == 1 else d.id
         url = f"/api/item/{id}"
         content = pack({"ids": d.ids})
-        # TODO: se usar pack, aproveitar de d.blobs
-        ret = j(self.request(url, "post", files={"file": content}))["success"]
-        if not ret:
-            print("Problems uploading")
-            return False
+        response = j(self.request(url, "post", files={"file": content}))["success"]
+        if not response:
+            print(f"Content already stored for id {d.id}")
+            return d.id
         for k, v in d.ids.items():
-            content = pack(d[k])
+            if k in d.blobs:
+                # Use cached blob.
+                content = d.blobs[k]
+            else:
+                content = pack(d[k], nondeterministic_fallback=True)
             url = f"/api/item/{v}"
-            ret = ret and j(self.request(url, "post", files={"file": content}))["success"]
+            _ = j(self.request(url, "post", files={"file": content}))["success"]
 
         # except DuplicateEntryException as e:
         #     if "OKATESTING" not in os.environ:
         #         print(f"[Error] You have already uploaded the dataset with OID {e}.")
 
-        return ret
+        return d.id
 
     def __setitem__(self, key, value):
         url = f"/api/item/{key}"
         content = pack(value)
-        ret = j(self.request(url, "post", files={"file": content}))["success"]
-        if not ret:
-            print("Problems uploading")
-            return False
+        response = j(self.request(url, "post", files={"file": content}))["success"]
+        if not response:
+            print(f"Content already stored for id {key}")
+            return None
+        return response
 
     def __getitem__(self, key):
         url = f"/api/item/{key}"
@@ -155,3 +164,8 @@ class Oka(Cache):
 
     def __iter__(self):
         pass
+
+# todo-icones/cores na web
+# todo-checar mem leak
+# todo-client enviar blob
+# todo-enviar DF

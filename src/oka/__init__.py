@@ -1,8 +1,15 @@
+from getpass import getpass
+
 import numpy
 import requests
-from .client import Oka
-from getpass import getpass
 from oka.config import default_url, default_user, default_password
+
+from .client import Oka
+
+
+def toy_df():
+    from idict import idict
+    return idict.fromtoy(output_format="df")["df"]
 
 
 def j(r):
