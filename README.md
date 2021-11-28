@@ -182,7 +182,7 @@ from sklearn.ensemble import RandomForestClassifier as RF
 d = idict.fromtoy() >> split >> let(fit, algorithm=RF, Xin="Xtr", yin="ytr") >> let(predict, Xin="Xts")
 print(d.z)
 """
-[1 0 1 0 1 1 1]
+[1 0 1 0 1 1 0]
 """
 ```
 
