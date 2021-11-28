@@ -65,5 +65,5 @@ git push
 echo "------------------- pushed ----------------------"
 echo; echo
 
-# echo "------------------- publish ----------------------"
-# poetry publish --build
+echo "------------------- publish ----------------------"
+poetry publish --build

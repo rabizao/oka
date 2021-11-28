@@ -8,8 +8,8 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5501845.svg)](https://doi.org/10.5281/zenodo.5501845)
 [![arXiv](https://img.shields.io/badge/arXiv-2109.06028-b31b1b.svg?style=flat-square)](https://arxiv.org/abs/2109.06028)
-[![User Manual](https://img.shields.io/badge/doc%20%28auto%29-a0a0a0.svg)](https://rabizao.github.io/oka)
-[![API Documentation](https://img.shields.io/badge/doc-API%20%28auto%29-a0a0a0.svg)](https://rabizao.github.io/oka/API)
+[![User Manual](https://img.shields.io/badge/doc-user%20manual-a0a0a0.svg)](https://rabizao.github.io/oka)
+[![API Documentation](https://img.shields.io/badge/doc-API%20%28auto%29-a0a0a0.svg)](https://rabizao.github.io/oka/api)
 
 # oka - Client for OKA repository
 [Latest version as a package](https://pypi.org/project/oka)
