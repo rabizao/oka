@@ -4,6 +4,7 @@ version = "0.211126.3"
 description = "Python client for oka repository"
 authors = ["Rafael Bizao <rabizao@gmail.com>", "Davi Pereira-Santos <dpsabc@gmail.com>"]
 license = "GPL3"
+readme = 'README.md'
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -28,3 +29,8 @@ SQLAlchemy = "^1.4.27"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+#[[tool.poetry.source]]
+#name = "dvpypi"
+#url = "http://localhost:8080/simple"
+#secondary = true
