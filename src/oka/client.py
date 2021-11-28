@@ -37,8 +37,7 @@ def j(r):
 
 @dataclass
 class Oka(Cache):
-    """Handle posts from command line to spare the user from accessing the web to publish results.
-    """
+    """Handle posts from command line to spare the user from accessing the web to publish results."""
 
     # TODO: put sync here also
     token: str = None
@@ -69,7 +68,7 @@ class Oka(Cache):
         return self.get(id)
 
     def request(self, route, method, **kwargs):
-        headers = {'Authorization': 'Bearer ' + self.token}
+        headers = {"Authorization": "Bearer " + self.token}
         r = getattr(req, method)(self.url + route, headers=headers, **kwargs)
         if r.status_code == 401:
             raise Exception("Token invalid!")
@@ -164,6 +163,7 @@ class Oka(Cache):
 
     def __iter__(self):
         pass
+
 
 # todo-icones/cores na web
 # todo-checar mem leak

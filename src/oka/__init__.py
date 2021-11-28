@@ -9,6 +9,7 @@ from .client import Oka
 
 def toy_df():
     from idict import idict
+
     return idict.fromtoy(output_format="df")["df"]
 
 
@@ -20,16 +21,17 @@ def j(r):
 def generate_token(url=default_url):
     data = {
         "username": default_user or input("Username to connect to OKA: "),
-        "password": default_password or getpass("Password to connect to OKA: ")
+        "password": default_password or getpass("Password to connect to OKA: "),
     }
     response = requests.post(f"{url}/api/auth/login", json=data)
-    if response and 'access_token' in j(response):
-        return j(response)['access_token']
+    if response and "access_token" in j(response):
+        return j(response)["access_token"]
     raise Exception("[Error] Authentication failed.")
 
 
 def new_data(**kwargs):
     from aiuna import new
+
     for l in list(kwargs):
         if isinstance(kwargs[l], list):
             if not isinstance(kwargs[l][0], list):

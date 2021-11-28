@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "oka"
-version = "0.211126.0"
+version = "0.211126.2"
 description = "Python client for oka repository"
 authors = ["Rafael Bizao <rabizao@gmail.com>", "Davi Pereira-Santos <dpsabc@gmail.com>"]
 license = "GPL3"
@@ -12,6 +12,7 @@ python-dotenv = "^0.19.2"
 idict = "^1.211127.3"
 pandas = "^1.3.4"
 sklearn = "^0.0"
+SQLAlchemy = {version = "^1.4.27", optional = true}
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
@@ -22,6 +23,7 @@ pytest-cov = "^3.0.0"
 testfixtures = "^6.18.3"
 autoreadme = "^0.2102.20"
 sklearn = "^0.0"
+SQLAlchemy = "^1.4.27"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
