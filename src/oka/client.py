@@ -37,7 +37,18 @@ def j(r):
 
 @dataclass
 class Oka(Cache):
-    """Handle posts from command line to spare the user from accessing the web to publish results."""
+    """Client for OKA repository
+
+    >>>
+    Role:
+        - Send/receive datasets or results as pandas DataFrame objects.
+        - Send/receive datasets, processed data or results in any format (cannot be visualized on the web).
+        - Seamless caching of data within a workflow.
+
+    TODO:
+        - Handle posts from command line to spare the user from accessing the web to publish results.
+        - Distributed cache (after 'oka.lock(id, state)' is implemented to reserve a job and mark it is still alive).
+    """
 
     # TODO: put sync here also
     token: str = None
@@ -46,6 +57,9 @@ class Oka(Cache):
 
     # Only used in parent class; useless here, but can be used for a Session
     decorator = None
+
+    def lock(self,id,state):
+        pass
 
     def __contains__(self, item):
         url = f"/api/item/{item}?checkonly=true"

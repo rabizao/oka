@@ -1,5 +1,5 @@
 ![test](https://github.com/rabizao/oka/workflows/test/badge.svg)
-[![codecov](https://codecov.io/gh/rabizao/oka/branch/main/graph/badge.svg)](https://codecov.io/gh/davips/garoupa)
+[![codecov](https://codecov.io/gh/rabizao/oka/branch/main/graph/badge.svg)](https://codecov.io/gh/rabizao/oka)
 <a href="https://pypi.org/project/oka">
 <img src="https://img.shields.io/pypi/v/oka.svg?label=release&color=blue&style=flat-square" alt="pypi">
 </a>
@@ -16,10 +16,12 @@
 
 [Current code](https://github.com/rabizao/oka)
 
+[User manual](https://rabizao.github.io/oka)
+
 [API documentation](https://rabizao.github.io/oka/api)
 
 ## Overview
-`oka` is the client for Oka repository.
+`oka` is a client for Oka repository.
 It also provides utilities to process data.
 
 ## Installation
@@ -35,16 +37,18 @@ pip install -U oka
 pip install -U oka[full]  # use the flag 'full' for extra functionality (recommended)
 
 # ...or, install from updated source code.
-pip install git+https://github.com/davips/rabizao/oka
+pip install git+https://github.com/rabizao/oka
 ```
     
 ### ...from source
-    sudo apt install python3.8-venv python3.8-dev python3.8-distutils # For Debian-like systems.
-    git clone https://github.com/rabizao/oka.git
-    cd oka
-    python3.8 -m venv venv
-    source venv/bin/activate
-    pip install -e .
+```bash
+sudo apt install python3.8-venv python3.8-dev python3.8-distutils # For Debian-like systems.
+git clone https://github.com/rabizao/oka
+cd oka
+python3.8 -m venv venv
+source venv/bin/activate
+pip install -e .
+```
 
 ## Usage
 
