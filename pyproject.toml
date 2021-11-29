@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "oka"
-version = "0.211126.5"
+version = "0.211129.1"
 description = "Python client for oka repository"
 authors = ["Rafael Bizao <rabizao@gmail.com>", "Davi Pereira-Santos <dpsabc@gmail.com>"]
 license = "GPL3"

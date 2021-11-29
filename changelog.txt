@@ -1,2 +1,6 @@
+v1.211129.2
+Move decolorize() to ldict
+Add lock stub
+
 v1.211128.2
 Adopt precedence criteria to solve ambiguity when getting OID/contentID from oka.get()
