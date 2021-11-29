@@ -58,7 +58,7 @@ class Oka(Cache):
     # Only used in parent class; useless here, but can be used for a Session
     decorator = None
 
-    def lock(self,id,state):
+    def lock(self, id, state):
         pass
 
     def __contains__(self, item):

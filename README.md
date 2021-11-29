@@ -1,5 +1,5 @@
 ![test](https://github.com/rabizao/oka/workflows/test/badge.svg)
-[![codecov](https://codecov.io/gh/rabizao/oka/branch/main/graph/badge.svg)](https://codecov.io/gh/davips/garoupa)
+[![codecov](https://codecov.io/gh/rabizao/oka/branch/main/graph/badge.svg)](https://codecov.io/gh/rabizao/oka)
 <a href="https://pypi.org/project/oka">
 <img src="https://img.shields.io/pypi/v/oka.svg?label=release&color=blue&style=flat-square" alt="pypi">
 </a>
@@ -16,10 +16,12 @@
 
 [Current code](https://github.com/rabizao/oka)
 
+[User manual](https://rabizao.github.io/oka)
+
 [API documentation](https://rabizao.github.io/oka/api)
 
 ## Overview
-`oka` is the client for Oka repository.
+`oka` is a client for Oka repository.
 It also provides utilities to process data.
 
 ## Installation
@@ -35,16 +37,18 @@ pip install -U oka
 pip install -U oka[full]  # use the flag 'full' for extra functionality (recommended)
 
 # ...or, install from updated source code.
-pip install git+https://github.com/davips/rabizao/oka
+pip install git+https://github.com/rabizao/oka
 ```
     
 ### ...from source
-    sudo apt install python3.8-venv python3.8-dev python3.8-distutils # For Debian-like systems.
-    git clone https://github.com/rabizao/oka.git
-    cd oka
-    python3.8 -m venv venv
-    source venv/bin/activate
-    pip install -e .
+```bash
+sudo apt install python3.8-venv python3.8-dev python3.8-distutils # For Debian-like systems.
+git clone https://github.com/rabizao/oka
+cd oka
+python3.8 -m venv venv
+source venv/bin/activate
+pip install -e .
+```
 
 ## Usage
 
@@ -174,15 +178,21 @@ row 2      3      4     -
 ```python3
 from pprint import pprint
 
-from idict import idict, let
+from idict import let, idict
 from idict.function.classification import fit, predict
 from idict.function.evaluation import split
 from sklearn.ensemble import RandomForestClassifier as RF
 
-d = idict.fromtoy() >> split >> let(fit, algorithm=RF, Xin="Xtr", yin="ytr") >> let(predict, Xin="Xts")
+d = (
+        idict.fromtoy()
+        >> split
+        >> let(fit, algorithm=RF, config={"n_estimators": 55}, Xin="Xtr", yin="ytr")
+        >> let(predict, Xin="Xts")
+)
+
 print(d.z)
 """
-[1 0 1 0 1 1 0]
+[1 0 1 0 1 1 1]
 """
 ```
 
@@ -194,7 +204,7 @@ pprint(d.history)
                                                       "config={}, Xin='X', "
                                                       "yin='y', "
                                                       "output='model', "
-                                                      '**kwargs):\n'
+                                                      'version=0, **kwargs):\n'
                                                       'obj = '
                                                       'algorithm(**config)\n'
                                                       'obj.fit(kwargs[Xin], '
@@ -205,12 +215,13 @@ pprint(d.history)
                                               'name': 'fit',
                                               'parameters': {'Xin': 'Xtr',
                                                              'algorithm': <class 'sklearn.ensemble._forest.RandomForestClassifier'>,
-                                                             'config': {},
+                                                             'config': {'n_estimators': 55},
                                                              'output': 'model',
+                                                             'version': 0,
                                                              'yin': 'ytr'}},
  'predict----------------------------idict': {'code': "def f(input='model', "
                                                       "Xin='X', yout='z', "
-                                                      '**kwargs):\n'
+                                                      'version=0, **kwargs):\n'
                                                       'return {yout: '
                                                       'kwargs[input].predict(kwargs[Xin]), '
                                                       "'_history': ...}",
@@ -220,41 +231,65 @@ pprint(d.history)
                                               'name': 'predict',
                                               'parameters': {'Xin': 'Xts',
                                                              'input': 'model',
+                                                             'version': 0,
                                                              'yout': 'z'}},
- 'split------------------------------idict': {'code': "def f(input=['X', 'y'], "
-                                                      'seed=0, test_pct=33, '
+ 'split----------------------sklearn-1.0.1': {'code': "def f(input=['X', 'y'], "
+                                                      "config={'test_size': "
+                                                      "0.33, 'shuffle': True, "
+                                                      "'stratify': 'y', "
+                                                      "'random_state': 0}, "
                                                       '**kwargs):\n'
                                                       "if input != ['X', "
                                                       "'y']:\n"
                                                       '    raise '
                                                       'Exception(f"Not '
-                                                      'implemented for input '
-                                                      "different than ['X', "
-                                                      '\'y\']: {input}")\n'
+                                                      'implemented for '
+                                                      'input/output different '
+                                                      'from default values: '
+                                                      '{input}")\n'
                                                       'from '
                                                       'sklearn.model_selection '
                                                       'import '
                                                       'train_test_split\n'
-                                                      'args = '
-                                                      '[kwargs[input[i]] for i '
-                                                      'in range(len(input))]\n'
-                                                      'Xtr, Xts, ytr, yts = '
-                                                      'train_test_split(*args, '
-                                                      'test_size=test_pct / '
-                                                      '100, shuffle=True, '
-                                                      'stratify=args[1], '
-                                                      'random_state=seed)\n'
-                                                      "return {'Xtr':Xtr, \n"
-                                                      " 'ytr':ytr,  "
-                                                      "'Xts':Xts,  'yts':yts,  "
+                                                      'args = {}\n'
+                                                      'for i, _ in '
+                                                      'enumerate(input):\n'
+                                                      '    args[input[i]] = '
+                                                      'kwargs[input[i]]\n'
+                                                      'else:\n'
+                                                      "    if 'stratify' in "
+                                                      'config:\n'
+                                                      '        if '
+                                                      "isinstance(config['stratify'], "
+                                                      'str):\n'
+                                                      '            if '
+                                                      "config['stratify'] not "
+                                                      'in input:\n'
+                                                      '                raise '
+                                                      'Exception(f"Missing '
+                                                      'field '
+                                                      "{config['stratify']} "
+                                                      'for stratification.")\n'
+                                                      '            '
+                                                      "config['stratify'] = "
+                                                      "args[config['stratify']]\n"
+                                                      '    Xtr, Xts, ytr, yts '
+                                                      '= '
+                                                      'train_test_split(*(args.values)(), '
+                                                      '**config)\n'
+                                                      "    return {'Xtr':Xtr,  "
+                                                      "'ytr':ytr,  'Xts':Xts,  "
+                                                      "'yts':yts,  "
                                                       "'_history':...}",
                                               'description': 'Split data in '
                                                              'two sets.',
                                               'name': 'split',
-                                              'parameters': {'input': ['X',
-                                                                       'y'],
-                                                             'seed': 0,
-                                                             'test_pct': 33}}}
+                                              'parameters': {'config': {'random_state': 0,
+                                                                        'shuffle': True,
+                                                                        'stratify': array([0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]),
+                                                                        'test_size': 0.33},
+                                                             'input': ['X',
+                                                                       'y']}}}
 """
 ```
 
