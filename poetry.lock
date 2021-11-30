@@ -221,7 +221,7 @@ docs = ["sphinx"]
 
 [[package]]
 name = "idict"
-version = "1.211129.1"
+version = "1.211129.2"
 description = "Lazy dict with predictable deterministic universally unique identifiers"
 category = "main"
 optional = false
@@ -966,7 +966,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "6302cbc84c225794a28596a1f3debd3266b7b6c7047b1e226622543ed95ec9e1"
+content-hash = "ce7de81dd56aab8dd6526f2fd0feb7c71e2917d4d9b15b668ca9437ec97027fb"
 
 [metadata.files]
 ansi2html = [
@@ -1158,8 +1158,8 @@ greenlet = [
     {file = "greenlet-1.1.2.tar.gz", hash = "sha256:e30f5ea4ae2346e62cedde8794a56858a67b878dd79f7df76a0767e356b1744a"},
 ]
 idict = [
-    {file = "idict-1.211129.1-py3-none-any.whl", hash = "sha256:30e7716914c3869531c6951797df83a414bf9ccae155443a9f77c369a81512ef"},
-    {file = "idict-1.211129.1.tar.gz", hash = "sha256:47c2d10da6a67a1f4f803c639ff7cad453b6dada6d2d180be7e8bffbd34ce306"},
+    {file = "idict-1.211129.2-py3-none-any.whl", hash = "sha256:ba7b513479ae55440ac0626e0a80f1ac0bce5bc2d56ea751a29c219bf0a48815"},
+    {file = "idict-1.211129.2.tar.gz", hash = "sha256:708074afe5373ea7a98e5ea3abda320a5e70fe3f40d9e56c59f1b77e38be37cd"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
