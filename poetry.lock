@@ -221,7 +221,7 @@ docs = ["sphinx"]
 
 [[package]]
 name = "idict"
-version = "1.211129.2"
+version = "1.211130.2"
 description = "Lazy dict with predictable deterministic universally unique identifiers"
 category = "main"
 optional = false
@@ -230,7 +230,7 @@ python-versions = ">=3.8,<4.0"
 [package.dependencies]
 dill = ">=0.3.4,<0.4.0"
 garoupa = ">=2.211126.1,<3.0.0"
-ldict = ">=3.211129.2,<4.0.0"
+ldict = ">=3.211130.1,<4.0.0"
 lz4 = ">=3.1.3,<4.0.0"
 orjson = ">=3.5.0,<4.0.0"
 pdoc3 = ">=0.10.0,<0.11.0"
@@ -358,7 +358,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
 [[package]]
 name = "ldict"
-version = "3.211129.2"
+version = "3.211130.1"
 description = "Lazy dict"
 category = "main"
 optional = false
@@ -966,7 +966,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ce7de81dd56aab8dd6526f2fd0feb7c71e2917d4d9b15b668ca9437ec97027fb"
+content-hash = "a584a5b5dfaf11321b992a0de2e529c12b1a25238b2685b8b53f58bf841d16a2"
 
 [metadata.files]
 ansi2html = [
@@ -1158,8 +1158,8 @@ greenlet = [
     {file = "greenlet-1.1.2.tar.gz", hash = "sha256:e30f5ea4ae2346e62cedde8794a56858a67b878dd79f7df76a0767e356b1744a"},
 ]
 idict = [
-    {file = "idict-1.211129.2-py3-none-any.whl", hash = "sha256:ba7b513479ae55440ac0626e0a80f1ac0bce5bc2d56ea751a29c219bf0a48815"},
-    {file = "idict-1.211129.2.tar.gz", hash = "sha256:708074afe5373ea7a98e5ea3abda320a5e70fe3f40d9e56c59f1b77e38be37cd"},
+    {file = "idict-1.211130.2-py3-none-any.whl", hash = "sha256:886b2942e39423098f7dcc4ea8d6b1ed8465425cbcaef2fdaafbff88886fd7f0"},
+    {file = "idict-1.211130.2.tar.gz", hash = "sha256:930155407c5b28d5aab7ce86f22f115231b19a822f6ab2173afcab7d892f8312"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
@@ -1218,8 +1218,8 @@ lazy-object-proxy = [
     {file = "lazy_object_proxy-1.6.0-cp39-cp39-win_amd64.whl", hash = "sha256:f5144c75445ae3ca2057faac03fda5a902eff196702b0a24daf1d6ce0650514b"},
 ]
 ldict = [
-    {file = "ldict-3.211129.2-py3-none-any.whl", hash = "sha256:890c2c6d2f6973c4875f0ce8c3d2c4850832e7ee74b41968eb4cec7cb136797f"},
-    {file = "ldict-3.211129.2.tar.gz", hash = "sha256:e74695766fe1c0ee64e27fe90d6105ab35ff9022336f76a0f9dd69f7d77948d6"},
+    {file = "ldict-3.211130.1-py3-none-any.whl", hash = "sha256:2f9f0a6f737f4e676538bb00aa8ced557d4f443205ed491619d78ed2183fa5d8"},
+    {file = "ldict-3.211130.1.tar.gz", hash = "sha256:7f44904b6cb0aeb7be5d1c0c4c2e5e9ea7a2b43fbfb77f6ac2ec94d2a5e2085f"},
 ]
 liac-arff = [
     {file = "liac-arff-2.5.0.tar.gz", hash = "sha256:3220d0af6487c5aa71b47579be7ad1d94f3849ff1e224af3bf05ad49a0b5c4da"},

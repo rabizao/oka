@@ -1,6 +1,10 @@
-v1.211129.2
-Move decolorize() to ldict
-Add lock stub
+v0.211130.1
+Improve ml example
+Make fromid() lazy
+Add setblob()
 
-v1.211128.2
+v1.211129
+Move decolorize() to ldict
+
+v1.211128
 Adopt precedence criteria to solve ambiguity when getting OID/contentID from oka.get()
