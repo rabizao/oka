@@ -23,18 +23,20 @@ from typing import Union
 
 import requests as req
 from garoupa import ø40
-from oka.config import default_url
 from pandas import DataFrame
 
 from idict import idict
 from idict.data.compression import unpack, pack
 from idict.persistence.compressedcache import CompressedCache
+from oka.config import default_url
 
 
 def j(r):
     """Helper function needed because flask test_client() provide json as a property(?), not as a method."""
     return r.json() if callable(r.json) else r.json
 
+# TODO (minor): detect identity according to number of digits, to pass it as keyworded argument to idict
+# TODO: Replace packing of pandas by json-like or pandas own solution
 
 @dataclass
 class Oka(CompressedCache):
@@ -61,18 +63,18 @@ class Oka(CompressedCache):
 
     def __setitem__(self, key, value, packit=True):
         url = f"/api/item/{key}"
-        content = pack(value) if packit else value
+        content = pack(value, nondeterministic_fallback=True) if packit else value
         response = j(self.request(url, "post", files={"file": content}))["success"]
         if not response:
             print(f"Content already stored for id {key}")
             return None
         return response
 
-    def __getitem__(self, key):
+    def __getitem__(self, key, oid="<unknown>"):
         url = f"/api/item/{key}"
         response = self.request(url, "get")
         if not response:
-            raise Exception(f"[Error] Data with OID {key} was not found.")
+            raise Exception(f"[Error] Missing key {key} for idict with OID {oid}.")
         return unpack(response.content)
 
     def __delitem__(self, key):
@@ -121,37 +123,28 @@ class Oka(CompressedCache):
     def get(self, id):
         """Get a dataframe, callable or idict from server
 
-        On single-valued idicts, content (dataframe or callable) take precedence and is returned directly."""
-        url = f"/api/item/{id}"
-        if not (response := self.request(url, "get")):
-            raise Exception(f"[Error] Data with OID {id} was not found.")
-        value = unpack(response.content)
+        On single-valued idicts, content (dataframe or callable) take precedence over idict and is returned directly."""
+        value = self.__getitem__(id, oid=id)
         if isinstance(value, DataFrame) or callable(value):
             return value
-        dic = {}
-        for k, v in value["ids"].items():
-            url = f"/api/sync?id={id}&fetch=true"
-            if not value:
-                raise Exception(f"[Error] Missing key {k} for idict with OID {id}.")
-            dic[k] = unpack(j(self.request(url, "get")))
-        # TODO (minor): detect identity according to number of digits, to pass it as keyworded argument to idict
+        dic = {self.__getitem__(v, oid=id) for k, v in value["ids"].items()}
         return idict(dic)
         # if not isinstance(value, dict) or "ids" not in value:
         #     raise Exception("dict containing key 'ids' expected.", type(value), value)
 
     def send(self, d: Union[DataFrame, idict], name=None, description=None, identity=ø40):
         """Send a dataframe, callable or idict to server"""
-        # Create inactive Post.
-        # name = name or "→".join(
-        #     x[:3] for x in data.history ^ "name" if x[:3] not in ["B", "Rev", "In", "Aut", "E"]
-        # )
+        # Create idict.
         if callable(d) or isinstance(d, DataFrame):
             d = idict(df=d, identity=identity)
+
+        # Build metadata.
         if name:
             d["_name"] = name
         if description:
             d["_description"] = description
 
+        # Send descriptor.
         id = "_" + d.id[1:] if len(d.ids) == 1 else d.id
         url = f"/api/item/{id}"
         content = pack({"ids": d.ids})
@@ -160,14 +153,13 @@ class Oka(CompressedCache):
         if not response:
             print(f"Content already stored for id {d.id}")
             return d.id
+
+        # Send items. Try to use blob cached in RAM.
         for k, v in d.ids.items():
             if k in d.blobs:
-                # Use cached blob.
-                content = d.blobs[k]
+                self.__setitem__(v, d.blobs[k], packit=False)
             else:
-                content = pack(d[k], nondeterministic_fallback=True)
-            url = f"/api/item/{v}"
-            _ = j(self.request(url, "post", files={"file": content}))["success"]
+                self[v] = d[k]
 
         # except DuplicateEntryException as e:
         #     if "OKATESTING" not in os.environ:
