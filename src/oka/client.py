@@ -102,29 +102,24 @@ class Oka(CompressedCache):
         return self.get(id)
 
     def request(self, route, method, **kwargs):
-        headers = {"Authorization": "Bearer " + self.token}
-        r = getattr(req, method)(self.url + route, headers=headers, **kwargs)
+        if "headers" not in kwargs:
+            kwargs["headers"] = {}
+        kwargs["headers"]["Authorization"] = "Bearer " + self.token
+        r = getattr(req, method)(self.url + route, **kwargs)
         if r.status_code == 401:
             raise Exception("Token invalid!")
-        elif r.status_code == 422:
-            pass
-        else:
-            if r.ok:
-                return r
-            print(r.content)
-            print(j(r))
-            print(j(r)["errors"])
-            msg = j(r)["errors"]["json"]
-            print(msg)
-            raise Exception(msg)
+        return r
 
     def get(self, id):
         """Get a dataframe, callable or idict from server
 
         On single-valued idicts, content (dataframe or callable) take precedence and is returned directly."""
         url = f"/api/item/{id}"
+        response = self.request(url, "get")
+        print("status", response.status_code)
         if not (response := self.request(url, "get")):
             raise Exception(f"[Error] Data with OID {id} was not found.")
+        print("sssssssss", response.content)
         value = unpack(response.content)
         if isinstance(value, DataFrame) or callable(value):
             return value
@@ -147,17 +142,13 @@ class Oka(CompressedCache):
         # )
         if callable(d) or isinstance(d, DataFrame):
             d = idict(df=d, identity=identity)
-        if name:
-            d["_name"] = name
-        if description:
-            d["_description"] = description
 
         id = "_" + d.id[1:] if len(d.ids) == 1 else d.id
         url = f"/api/item/{id}"
         content = pack({"ids": d.ids})
-        metadata = {"id": id, "name": name, "description": description}
-        response = j(self.request(url, "post", json=metadata, files={"file": content}))["success"]
-        if not response:
+        metadata = {"id": id, "name": "name", "description": description}
+        response = self.request(url, "post", json=metadata, data={"file": content}, headers = {'Content-type': 'multipart/form-data'})
+        if response.status_code == 422:
             print(f"Content already stored for id {d.id}")
             return d.id
         for k, v in d.ids.items():
