@@ -59,6 +59,7 @@ from garoupa import ø40
 
 from idict.parameter.ifunctionspace import iFunctionSpace
 from idict.parameter.ilet import iLet
+from idict.persistence.cache import Cache
 from ldict.core.appearance import decolorize
 from ldict.core.base import AbstractMutableLazyDict, AbstractLazyDict
 from ldict.exception import WrongKeyType
@@ -392,7 +393,7 @@ class Idict(AbstractMutableLazyDict):
         from idict.core.frozenidentifieddict import FrozenIdentifiedDict
 
         self.identity = identity
-        if isinstance(_dictionary, str) and isinstance(_id, dict):
+        if isinstance(_dictionary, str) and isinstance(_id, (dict, Cache)):
             # Build idict from id+cache.
             if _ids or rnd or _cloned or kwargs:
                 raise Exception(&#34;Cannot pass more arguments when first argument is id and second argument is cache.&#34;)
@@ -536,7 +537,10 @@ class Idict(AbstractMutableLazyDict):
     def fromopenml(name, version=1, Xout=&#34;X&#34;, yout=&#34;y&#34;):
         from idict.core.frozenidentifieddict import FrozenIdentifiedDict
 
-        return FrozenIdentifiedDict.fromopenml(name, version, Xout, yout).asmutable</code></pre>
+        return FrozenIdentifiedDict.fromopenml(name, version, Xout, yout).asmutable
+
+
+# TODO: colorize show() for (content: mh_8cf6d914f6d4010dfc1add303ed51f7151d44) and &#34;_history&#34;: &#34;split----------------------sklearn-1.0.1 fit--------------------------------idict predict----------------------------idict&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -1200,7 +1204,7 @@ FWBpAOEbVb-c8wa-jJbreKTOkZq1smsieeekmoge
         from idict.core.frozenidentifieddict import FrozenIdentifiedDict
 
         self.identity = identity
-        if isinstance(_dictionary, str) and isinstance(_id, dict):
+        if isinstance(_dictionary, str) and isinstance(_id, (dict, Cache)):
             # Build idict from id+cache.
             if _ids or rnd or _cloned or kwargs:
                 raise Exception(&#34;Cannot pass more arguments when first argument is id and second argument is cache.&#34;)

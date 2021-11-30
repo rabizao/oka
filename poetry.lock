@@ -221,7 +221,7 @@ docs = ["sphinx"]
 
 [[package]]
 name = "idict"
-version = "1.211130.2"
+version = "1.211130.4"
 description = "Lazy dict with predictable deterministic universally unique identifiers"
 category = "main"
 optional = false
@@ -506,7 +506,7 @@ test = ["hypothesis (>=3.58)", "pytest (>=6.0)", "pytest-xdist"]
 
 [[package]]
 name = "parso"
-version = "0.8.2"
+version = "0.8.3"
 description = "A Python Parser"
 category = "dev"
 optional = false
@@ -1158,8 +1158,8 @@ greenlet = [
     {file = "greenlet-1.1.2.tar.gz", hash = "sha256:e30f5ea4ae2346e62cedde8794a56858a67b878dd79f7df76a0767e356b1744a"},
 ]
 idict = [
-    {file = "idict-1.211130.2-py3-none-any.whl", hash = "sha256:886b2942e39423098f7dcc4ea8d6b1ed8465425cbcaef2fdaafbff88886fd7f0"},
-    {file = "idict-1.211130.2.tar.gz", hash = "sha256:930155407c5b28d5aab7ce86f22f115231b19a822f6ab2173afcab7d892f8312"},
+    {file = "idict-1.211130.4-py3-none-any.whl", hash = "sha256:b7d1711faf30b013111ce42932e4d178262577d59c58e8f53ed0e677be0937f2"},
+    {file = "idict-1.211130.4.tar.gz", hash = "sha256:12db67ba31e35ba56f0e9732c945084b8a7b03fad77d7cd869ce04ac1033a82b"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
@@ -1424,8 +1424,8 @@ pandas = [
     {file = "pandas-1.3.4.tar.gz", hash = "sha256:a2aa18d3f0b7d538e21932f637fbfe8518d085238b429e4790a35e1e44a96ffc"},
 ]
 parso = [
-    {file = "parso-0.8.2-py2.py3-none-any.whl", hash = "sha256:a8c4922db71e4fdb90e0d0bc6e50f9b273d3397925e5e60a717e719201778d22"},
-    {file = "parso-0.8.2.tar.gz", hash = "sha256:12b83492c6239ce32ff5eed6d3639d6a536170723c6f3f1506869f1ace413398"},
+    {file = "parso-0.8.3-py2.py3-none-any.whl", hash = "sha256:c001d4636cd3aecdaf33cbb40aebb59b094be2a74c556778ef5576c175e19e75"},
+    {file = "parso-0.8.3.tar.gz", hash = "sha256:8c07be290bb59f03588915921e29e8a50002acaf2cdc5fa0e0114f91709fafa0"},
 ]
 passlib = [
     {file = "passlib-1.7.4-py2.py3-none-any.whl", hash = "sha256:aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1"},
