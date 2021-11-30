@@ -22,6 +22,7 @@ from dataclasses import dataclass
 from typing import Union
 
 import requests as req
+from garoupa import ø40
 from pandas import DataFrame
 
 from idict import idict
@@ -133,18 +134,19 @@ class Oka(CompressedCache):
             if not value:
                 raise Exception(f"[Error] Missing key {k} for idict with OID {id}.")
             dic[k] = unpack(j(self.request(url, "get")))
+        # TODO: detect identity according to number of digits, to pass it as keyworded argument to idict
         return idict(dic)
         # if not isinstance(value, dict) or "ids" not in value:
         #     raise Exception("dict containing key 'ids' expected.", type(value), value)
 
-    def send(self, d: Union[DataFrame, idict], name=None, description=None):
+    def send(self, d: Union[DataFrame, idict], name=None, description=None, identity=ø40):
         """Send a dataframe, callable or idict to server"""
         # Create inactive Post.
         # name = name or "→".join(
         #     x[:3] for x in data.history ^ "name" if x[:3] not in ["B", "Rev", "In", "Aut", "E"]
         # )
         if callable(d) or isinstance(d, DataFrame):
-            d = idict(df=d)
+            d = idict(df=d, identity=identity)
         if name:
             d["_name"] = name
         if description:
