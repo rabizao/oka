@@ -134,7 +134,7 @@ class Oka(CompressedCache):
             if not value:
                 raise Exception(f"[Error] Missing key {k} for idict with OID {id}.")
             dic[k] = unpack(j(self.request(url, "get")))
-        # TODO: detect identity according to number of digits, to pass it as keyworded argument to idict
+        # TODO (minor): detect identity according to number of digits, to pass it as keyworded argument to idict
         return idict(dic)
         # if not isinstance(value, dict) or "ids" not in value:
         #     raise Exception("dict containing key 'ids' expected.", type(value), value)
@@ -155,7 +155,8 @@ class Oka(CompressedCache):
         id = "_" + d.id[1:] if len(d.ids) == 1 else d.id
         url = f"/api/item/{id}"
         content = pack({"ids": d.ids})
-        response = j(self.request(url, "post", files={"file": content}))["success"]
+        metadata = {"id": id, "name": name, "description": description}
+        response = j(self.request(url, "post", json=metadata, files={"file": content}))["success"]
         if not response:
             print(f"Content already stored for id {d.id}")
             return d.id
@@ -179,7 +180,6 @@ class Oka(CompressedCache):
 
     def __iter__(self):
         pass
-
 
 # todo-icones/cores na web
 # todo-checar mem leak

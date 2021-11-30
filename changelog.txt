@@ -1,4 +1,5 @@
-v0.211130.1
+v0.211130
+Add {"id": id, "name": name, "description": description} to send()
 Improve ml example
 Make fromid() lazy
 Add setblob()
