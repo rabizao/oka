@@ -23,12 +23,12 @@ from typing import Union
 
 import requests as req
 from garoupa import ø40
+from oka.config import default_url
 from pandas import DataFrame
 
 from idict import idict
 from idict.data.compression import unpack, pack
 from idict.persistence.compressedcache import CompressedCache
-from oka.config import default_url
 
 
 def j(r):
@@ -181,8 +181,10 @@ class Oka(CompressedCache):
     def __iter__(self):
         pass
 
+    # todo-icones/cores na web
+    # todo-checar mem leak
+    # todo-client enviar blob
+    # todo-enviar DF
 
-# todo-icones/cores na web
-# todo-checar mem leak
-# todo-client enviar blob
-# todo-enviar DF
+    def copy(self):
+        raise NotImplementedError
