@@ -22,11 +22,11 @@ from dataclasses import dataclass
 from typing import Union
 
 import requests as req
-from idict import idict
-from idict.data.compression import unpack, pack
-from idict.persistence.cache import Cache
 from pandas import DataFrame
 
+from idict import idict
+from idict.data.compression import unpack, pack
+from idict.persistence.compressedcache import CompressedCache
 from oka.config import default_url
 
 
@@ -36,7 +36,7 @@ def j(r):
 
 
 @dataclass
-class Oka(Cache):
+class Oka(CompressedCache):
     """Client for OKA repository
 
     >>>
@@ -57,6 +57,28 @@ class Oka(Cache):
 
     # Only used in parent class; useless here, but can be used for a Session
     decorator = None
+
+    def setblob(self, key, blob):
+        self.__setitem__(key, blob, packit=False)
+
+    def __setitem__(self, key, value, packit=True):
+        url = f"/api/item/{key}"
+        content = pack(value) if packit else value
+        response = j(self.request(url, "post", files={"file": content}))["success"]
+        if not response:
+            print(f"Content already stored for id {key}")
+            return None
+        return response
+
+    def __getitem__(self, key):
+        url = f"/api/item/{key}"
+        response = self.request(url, "get")
+        if not response:
+            raise Exception(f"[Error] Data with OID {key} was not found.")
+        return unpack(response.content)
+
+    def __delitem__(self, key):
+        pass
 
     def lock(self, id, state):
         pass
@@ -153,31 +175,11 @@ class Oka(Cache):
 
         return d.id
 
-    def __setitem__(self, key, value):
-        url = f"/api/item/{key}"
-        content = pack(value)
-        response = j(self.request(url, "post", files={"file": content}))["success"]
-        if not response:
-            print(f"Content already stored for id {key}")
-            return None
-        return response
-
-    def __getitem__(self, key):
-        url = f"/api/item/{key}"
-        response = self.request(url, "get")
-        if not response:
-            raise Exception(f"[Error] Data with OID {key} was not found.")
-        return unpack(response.content)
-
-    def __delitem__(self, key):
-        pass
-
     def __repr__(self):
         pass
 
     def __iter__(self):
         pass
-
 
 # todo-icones/cores na web
 # todo-checar mem leak
