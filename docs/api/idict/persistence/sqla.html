@@ -50,13 +50,13 @@
 from typing import TypeVar
 
 from idict.data.compression import unpack, pack
-from idict.persistence.cache import Cache
+from idict.persistence.compressedcache import CompressedCache
 from idict.persistence.raw.sqladict import sqladict, check, Content
 
 VT = TypeVar(&#34;VT&#34;)
 
 
-class SQLA(Cache):  # pragma:  cover
+class SQLA(CompressedCache):  # pragma:  cover
     &#34;&#34;&#34;Save to/retrieve from SQLAlchemy.
 
     Based on built-in module shelve. Open and close at every transaction.
@@ -87,9 +87,9 @@ class SQLA(Cache):  # pragma:  cover
         self.autopack = autopack
         self.nondeterministic_fallback_on_pack = nondeterministic_fallback_on_pack
 
-    def __setitem__(self, key: str, value):
+    def __setitem__(self, key: str, value, packit=True):
         check(key)
-        if self.autopack:
+        if self.autopack and packit:
             super().__setitem__(key, pack(value, nondeterministic_fallback=self.nondeterministic_fallback_on_pack))
         else:
             super().__setitem__(key, value)
@@ -155,7 +155,7 @@ SQLA→&lt;class 'idict.persistence.raw.sqladict.SQLAdict'&gt;
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class SQLA(Cache):  # pragma:  cover
+<pre><code class="python">class SQLA(CompressedCache):  # pragma:  cover
     &#34;&#34;&#34;Save to/retrieve from SQLAlchemy.
 
     Based on built-in module shelve. Open and close at every transaction.
@@ -186,9 +186,9 @@ SQLA→&lt;class 'idict.persistence.raw.sqladict.SQLAdict'&gt;
         self.autopack = autopack
         self.nondeterministic_fallback_on_pack = nondeterministic_fallback_on_pack
 
-    def __setitem__(self, key: str, value):
+    def __setitem__(self, key: str, value, packit=True):
         check(key)
-        if self.autopack:
+        if self.autopack and packit:
             super().__setitem__(key, pack(value, nondeterministic_fallback=self.nondeterministic_fallback_on_pack))
         else:
             super().__setitem__(key, value)
@@ -214,6 +214,7 @@ SQLA→&lt;class 'idict.persistence.raw.sqladict.SQLAdict'&gt;
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
+<li><a title="idict.persistence.compressedcache.CompressedCache" href="compressedcache.html#idict.persistence.compressedcache.CompressedCache">CompressedCache</a></li>
 <li><a title="idict.persistence.cache.Cache" href="cache.html#idict.persistence.cache.Cache">Cache</a></li>
 <li>abc.ABC</li>
 </ul>
