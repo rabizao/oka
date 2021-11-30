@@ -58,9 +58,6 @@ class Oka(CompressedCache):
     # Only used in parent class; useless here, but can be used for a Session
     decorator = None
 
-    def setblob(self, key, blob):
-        self.__setitem__(key, blob, packit=False)
-
     def __setitem__(self, key, value, packit=True):
         url = f"/api/item/{key}"
         content = pack(value) if packit else value
