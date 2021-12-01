@@ -35,6 +35,7 @@ def j(r):
     """Helper function needed because flask test_client() provide json as a property(?), not as a method."""
     return r.json() if callable(r.json) else r.json
 
+
 # TODO (minor): detect identity according to number of digits, to pass it as keyworded argument to idict
 # TODO: Replace packing of pandas by json-like or pandas own solution
 
@@ -58,9 +59,6 @@ class Oka(CompressedCache):
     url: str = default_url
     id: str = None
 
-    # Only used in parent class; useless here, but can be used for a Session
-    decorator = None
-
     def __setitem__(self, key, value, packit=True):
         url = f"/api/item/{key}"
         content = pack(value, nondeterministic_fallback=True) if packit else value
@@ -70,12 +68,15 @@ class Oka(CompressedCache):
             return None
         return response
 
-    def __getitem__(self, key, oid="<unknown>"):
+    def __getitem__(self, key, oid="<unknown>", return_blob=False):
         url = f"/api/item/{key}"
         response = self.request(url, "get")
         if not response:
             raise Exception(f"[Error] Missing key {key} for idict with OID {oid}.")
-        return unpack(response.content)
+        value = unpack(blob := response.content)
+        if return_blob:
+            return value, blob
+        return value
 
     def __delitem__(self, key):
         pass
@@ -83,25 +84,49 @@ class Oka(CompressedCache):
     def lock(self, id, state):
         pass
 
-    def __contains__(self, item):
-        url = f"/api/item/{item}?checkonly=true"
-        ret = j(self.request(url, "get"))
-        return ret
+    def get(self, id):
+        """Get a dataframe, callable or idict from server
 
-    def __lshift__(self, other):
-        """Can receive a Data object or a tuple (data, name, description)."""
-        if isinstance(other, tuple):
-            self.send(other[0], *other[1:])
-        self.send(other)
+        On single-valued idicts, content (dataframe or callable) take precedence over idict and is returned directly."""
+        value = self.__getitem__(id, oid=id)
+        if isinstance(value, DataFrame) or callable(value):
+            return value
 
-    def __rmatmul__(self, other):
-        return self.get(other)
+        # REMINDER: We waste the request above, but return a lazy idict.
+        return idict(id, self)  #{self.__getitem__(v, oid=id) for k, v in value["ids"].items()}
 
-    # noinspection PyArgumentList
-    def __call__(self, id=None):
-        if id is None:
-            return self.__class__(url=self.url)
-        return self.get(id)
+    def send(self, d: Union[DataFrame, idict], name=None, description=None, identity=ø40):
+        """Send a dataframe, callable or idict to server"""
+        # Create idict.
+        if callable(d):
+            d = idict(f=d, identity=identity)
+        if isinstance(d, DataFrame):
+            d = idict(df=d, identity=identity)
+
+        # Build metadata.
+        if name:
+            d["_name"] = name
+        if description:
+            d["_description"] = description
+
+        # Store.
+        d >> [[self]]
+
+        return d.id
+
+    def __repr__(self):
+        pass
+
+    def __iter__(self):
+        pass
+
+    # todo-icones/cores na web
+    # todo-checar mem leak
+    # todo-client enviar blob
+    # todo-enviar DF
+
+    def copy(self):
+        raise NotImplementedError
 
     def request(self, route, method, **kwargs):
         headers = {"Authorization": "Bearer " + self.token}
@@ -120,63 +145,25 @@ class Oka(CompressedCache):
             print(msg)
             raise Exception(msg)
 
-    def get(self, id):
-        """Get a dataframe, callable or idict from server
+    def __contains__(self, item):
+        url = f"/api/item/{item}?checkonly=true"
+        ret = j(self.request(url, "get"))
+        return ret
 
-        On single-valued idicts, content (dataframe or callable) take precedence over idict and is returned directly."""
-        value = self.__getitem__(id, oid=id)
-        if isinstance(value, DataFrame) or callable(value):
-            return value
-        dic = {self.__getitem__(v, oid=id) for k, v in value["ids"].items()}
-        return idict(dic)
-        # if not isinstance(value, dict) or "ids" not in value:
-        #     raise Exception("dict containing key 'ids' expected.", type(value), value)
+    def __lshift__(self, other):
+        """Alias to be used within expressions
 
-    def send(self, d: Union[DataFrame, idict], name=None, description=None, identity=ø40):
-        """Send a dataframe, callable or idict to server"""
-        # Create idict.
-        if callable(d) or isinstance(d, DataFrame):
-            d = idict(df=d, identity=identity)
+        `client << value` is equivalent to `client.send(value)` but returns value.
 
-        # Build metadata.
-        if name:
-            d["_name"] = name
-        if description:
-            d["_description"] = description
+        `value` can be a Data object or a tuple `(value, name, description)`."""
+        if isinstance(other, tuple):
+            self.send(other[0], *other[1:])
+            return other[0]
+        self.send(other)
+        return other
 
-        # Send descriptor.
-        id = "_" + d.id[1:] if len(d.ids) == 1 else d.id
-        url = f"/api/item/{id}"
-        content = pack({"ids": d.ids})
-        metadata = {"id": id, "name": name, "description": description}
-        response = j(self.request(url, "post", json=metadata, files={"file": content}))["success"]
-        if not response:
-            print(f"Content already stored for id {d.id}")
-            return d.id
+    def __rmatmul__(self, other):
+        """Alias to be used within expressions
 
-        # Send items. Try to use blob cached in RAM.
-        for k, v in d.ids.items():
-            if k in d.blobs:
-                self.__setitem__(v, d.blobs[k], packit=False)
-            else:
-                self[v] = d[k]
-
-        # except DuplicateEntryException as e:
-        #     if "OKATESTING" not in os.environ:
-        #         print(f"[Error] You have already uploaded the dataset with OID {e}.")
-
-        return d.id
-
-    def __repr__(self):
-        pass
-
-    def __iter__(self):
-        pass
-
-    # todo-icones/cores na web
-    # todo-checar mem leak
-    # todo-client enviar blob
-    # todo-enviar DF
-
-    def copy(self):
-        raise NotImplementedError
+        `id@client` is equivalent to `client.get(value)`"""
+        return self.get(other)
