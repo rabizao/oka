@@ -59,24 +59,23 @@ class Oka(CompressedCache):
     url: str = default_url
     id: str = None
 
-    def __setitem__(self, key, value, packit=True):
+    def __setitem__(self, key, value, packing=True):
         url = f"/api/item/{key}"
-        content = pack(value, nondeterministic_fallback=True) if packit else value
+        content = pack(value, nondeterministic_fallback=True) if packing else value
         response = j(self.request(url, "post", files={"file": content}))["success"]
         if not response:
             print(f"Content already stored for id {key}")
             return None
         return response
 
-    def __getitem__(self, key, oid="<unknown>", return_blob=False):
+    def __getitem__(self, key, oid="<unknown>", packing=True):
         url = f"/api/item/{key}"
         response = self.request(url, "get")
         if not response:
             raise Exception(f"[Error] Missing key {key} for idict with OID {oid}.")
-        value = unpack(blob := response.content)
-        if return_blob:
-            return value, blob
-        return value
+        if packing:
+            return unpack(response.content)
+        return response.content
 
     def __delitem__(self, key):
         pass
