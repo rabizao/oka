@@ -21,8 +21,9 @@
 from dataclasses import dataclass
 from typing import Union
 
+import jwt
 import requests as req
-from garoupa import ø40
+from garoupa import ø40, ø
 from pandas import DataFrame
 
 from idict import idict
@@ -58,21 +59,36 @@ class Oka(CompressedCache):
     token: str = None
     url: str = default_url
     id: str = None
+    debug: bool = False
 
-    def __setitem__(self, key, value, packing=True):
-        url = f"/api/item/{key}"
-        content = pack(value, nondeterministic_fallback=True) if packing else value
+    def __post_init__(self):
+        # TODO(minor): verify_signature??
+        self.login = jwt.decode(self.token, options={"verify_signature": False})["sub"]
+        self.uid = ø * self.login.encode()
+
+    def __contains__(self, item):
+        url = f"/api/item/{item}?checkonly=true"
+        ret = j(self.request(url, "get"))
+        return ret
+
+    def __setitem__(self, id, value, packing=True):
+        if self.debug:
+            print("oka: set", id)
+        url = f"/api/item/{id}"
+        content = pack(value, ensure_determinism=False) if packing else value
         response = j(self.request(url, "post", files={"file": content}))["success"]
         if not response:
-            print(f"Content already stored for id {key}")
+            print(f"Content already stored for id {id}")
             return None
         return response
 
-    def __getitem__(self, key, oid="<unknown>", packing=True):
-        url = f"/api/item/{key}"
+    def __getitem__(self, id, oid="<unknown>", packing=True):
+        if self.debug:
+            print("oka: get", id)
+        url = f"/api/item/{id}"
         response = self.request(url, "get")
         if not response:
-            raise Exception(f"[Error] Missing key {key} for idict with OID {oid}.")
+            raise Exception(f"[Error] Missing key {id} for idict with OID {oid}.")
         if packing:
             return unpack(response.content)
         return response.content
@@ -80,19 +96,27 @@ class Oka(CompressedCache):
     def __delitem__(self, key):
         pass
 
-    def lock(self, id, state):
+    def lockid(self, id):
         pass
 
     def get(self, id):
         """Get a dataframe, callable or idict from server
 
         On single-valued idicts, content (dataframe or callable) take precedence over idict and is returned directly."""
+        if not isinstance(id, str):  # pragma: no cover
+            raise Exception(f"Wrong id format: {id}")
         value = self.__getitem__(id, oid=id)
         if isinstance(value, DataFrame) or callable(value):
             return value
 
         # REMINDER: We waste the request above, but return a lazy idict.
-        return idict(id, self)  #{self.__getitem__(v, oid=id) for k, v in value["ids"].items()}
+        d = idict(id, self)  # {self.__getitem__(v, oid=id) for k, v in value["ids"].items()}
+
+        # Get metafields and put them inside the requested idict.
+        # metafields = {}
+        # TODO: sera que usar >> vai afetar id via ihandkledict?
+        metafields = idict(mfsid, self) if (mfsid := id * self.uid) in self else {}
+        return d >> metafields
 
     def send(self, d: Union[DataFrame, idict], name=None, description=None, identity=ø40):
         """Send a dataframe, callable or idict to server"""
@@ -109,6 +133,9 @@ class Oka(CompressedCache):
             d["_description"] = description
 
         # Store.
+        if d.metafields:
+            idict(oid=d.id, uid=self.uid, **d.metafields) >> [[self]]
+            d = d.trimmed
         d >> [[self]]
 
         return d.id
@@ -130,7 +157,7 @@ class Oka(CompressedCache):
     def request(self, route, method, **kwargs):
         headers = {"Authorization": "Bearer " + self.token}
         r = getattr(req, method)(self.url + route, headers=headers, **kwargs)
-        if r.status_code == 401:
+        if r.status_code == 401:  # pragma: no cover
             raise Exception("Token invalid!")
         elif r.status_code == 422:
             pass
@@ -143,11 +170,6 @@ class Oka(CompressedCache):
             msg = j(r)["errors"]["json"]
             print(msg)
             raise Exception(msg)
-
-    def __contains__(self, item):
-        url = f"/api/item/{item}?checkonly=true"
-        ret = j(self.request(url, "get"))
-        return ret
 
     def __lshift__(self, other):
         """Alias to be used within expressions
