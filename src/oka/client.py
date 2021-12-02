@@ -146,11 +146,13 @@ class Oka(CompressedCache):
         id = "_" + d.id[1:] if len(d.ids) == 1 else d.id
         url = f"/api/item/{id}"
         content = pack({"ids": d.ids})
-        metadata = {"id": id, "name": "name", "description": description}
-        response = self.request(url, "post", json=metadata, data={"file": content}, headers = {'Content-type': 'multipart/form-data'})
+        metadata = {"create_post": True}
+        response = self.request(url, "post", data=metadata, files={"file": content})
+
         if response.status_code == 422:
             print(f"Content already stored for id {d.id}")
             return d.id
+
         for k, v in d.ids.items():
             if k in d.blobs:
                 # Use cached blob.
