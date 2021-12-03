@@ -41,6 +41,7 @@ def j(r):
 # TODO (minor): detect identity according to number of digits, to pass it as keyworded argument to idict
 # TODO: Replace packing of pandas by json-like or pandas own solution
 
+
 @dataclass
 class Oka(CompressedCache):
     """Client for OKA repository
@@ -80,7 +81,7 @@ class Oka(CompressedCache):
         url = f"/api/item/{id}"
         content = pack(value, ensure_determinism=False) if packing else value
         response = j(self.request(url, "post", files={"file": content}))["success"]
-        if not response:
+        if not response and self.debug:
             print(f"Content already stored for id {id}")
             return None
         return response
