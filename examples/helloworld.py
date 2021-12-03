@@ -7,8 +7,8 @@ print(df.head())
 # ...
 
 # Login.
-token = generate_token("http://localhost:5000")
-client = Oka(token, "http://localhost:5000")
+token = generate_token()
+client = Oka(token)
 
 # Store.
 id = client.send(df)

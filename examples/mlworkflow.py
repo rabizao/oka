@@ -1,5 +1,4 @@
 # Machine Learning workflow
-import json
 
 from sklearn.ensemble import RandomForestClassifier as RF
 
@@ -9,8 +8,8 @@ from idict.function.evaluation import split
 from oka import Oka, generate_token
 
 # Login.
-token = generate_token("http://localhost:5000")
-cache = Oka(token, "http://localhost:5000")
+token = generate_token()
+cache = Oka(token)
 d = (
         idict.fromtoy()
         >> split
@@ -20,7 +19,7 @@ d = (
         >> [cache]
 )
 cache.send(d)
-print(json.dumps(list(d.history.keys()), indent=2))
+# print(json.dumps(list(d.history.keys()), indent=2))
 # # ...
 #
 # d.show()

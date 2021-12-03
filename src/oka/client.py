@@ -23,10 +23,10 @@ from typing import Union
 
 import jwt
 import requests as req
-from garoupa import ø40, ø, Hosh
-from garoupa.misc.colors import colorize128bit
 from pandas import DataFrame
 
+from garoupa import ø40, ø, Hosh
+from garoupa.misc.colors import colorize128bit
 from idict import idict
 from idict.data.compression import unpack, pack
 from idict.persistence.compressedcache import CompressedCache
@@ -75,15 +75,12 @@ class Oka(CompressedCache):
         return self.request(url, "get").ok
 
     def __setitem__(self, id, value, packing=True):
-        print("----setitem-------------------")
         if self.debug:
             print("oka:", colorize128bit("set", 8), id)
         url = f"/api/item/{id}"
         content = pack(value, ensure_determinism=False) if packing else value
         metadata = {"create_post": True}
-        print(444444444444444444444444)
         response = self.request(url, "post", data=metadata, files={"file": content})
-        print(3333333333333333333333333)
         if not response and self.debug:
             print(f"Content already stored for id {id}")
             return None
@@ -93,10 +90,7 @@ class Oka(CompressedCache):
         if self.debug:
             print("oka:", colorize128bit("get", 8), id)
         url = f"/api/item/{id}"
-        print(self.login, 7777777777777777777777)
         response = self.request(url, "get")
-        if not response:
-            raise Exception(f"[Error] Missing key {id} for idict with OID {oid}.")
         if packing:
             return unpack(response.content)
         return response.content
@@ -137,7 +131,6 @@ class Oka(CompressedCache):
             d["_description"] = description
 
         # Store.
-        print("ssssssssssssssssssssssssssssssssssssssss")
         d >> [[self]]
 
         return d.id
@@ -161,6 +154,8 @@ class Oka(CompressedCache):
             kwargs["headers"] = {}
         kwargs["headers"]["Authorization"] = "Bearer " + self.token
         r = getattr(req, method)(self.url + route, **kwargs)
+        if not r:
+            raise Exception(f"[Error] Cannot query server for route {route}.")
         if r.status_code == 401:  # pragma: no cover
             raise Exception("Token invalid!")
         return r
