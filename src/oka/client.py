@@ -23,7 +23,8 @@ from typing import Union
 
 import jwt
 import requests as req
-from garoupa import ø40, ø
+from garoupa import ø40, ø, Hosh
+from garoupa.misc.colors import colorize128bit
 from pandas import DataFrame
 
 from idict import idict
@@ -64,7 +65,9 @@ class Oka(CompressedCache):
     def __post_init__(self):
         # TODO(minor): verify_signature??
         self.login = jwt.decode(self.token, options={"verify_signature": False})["sub"]
-        self.uid = ø * self.login.encode()
+        # TODO: change uid to hybrid? unordered? e o alfabeto?
+        # TODO: limitar caracteres do login, pra poder usar b"davips----------------------------"?
+        self.user_hosh = ø * ("oka:" + self.login).encode()
 
     def __contains__(self, item):
         url = f"/api/item/{item}?checkonly=true"
@@ -73,7 +76,7 @@ class Oka(CompressedCache):
 
     def __setitem__(self, id, value, packing=True):
         if self.debug:
-            print("oka: set", id)
+            print("oka:", colorize128bit("set", 8), id)
         url = f"/api/item/{id}"
         content = pack(value, ensure_determinism=False) if packing else value
         response = j(self.request(url, "post", files={"file": content}))["success"]
@@ -84,7 +87,7 @@ class Oka(CompressedCache):
 
     def __getitem__(self, id, oid="<unknown>", packing=True):
         if self.debug:
-            print("oka: get", id)
+            print("oka:", colorize128bit("get", 8), id)
         url = f"/api/item/{id}"
         response = self.request(url, "get")
         if not response:
@@ -103,20 +106,16 @@ class Oka(CompressedCache):
         """Get a dataframe, callable or idict from server
 
         On single-valued idicts, content (dataframe or callable) take precedence over idict and is returned directly."""
+        if isinstance(id, Hosh):  # pragma: no cover
+            id = id.id
         if not isinstance(id, str):  # pragma: no cover
-            raise Exception(f"Wrong id format: {id}")
+            raise Exception(f"Wrong id format: {id}; type: {type(id)}")
         value = self.__getitem__(id, oid=id)
         if isinstance(value, DataFrame) or callable(value):
             return value
 
         # REMINDER: We waste the request above, but return a lazy idict.
-        d = idict(id, self)  # {self.__getitem__(v, oid=id) for k, v in value["ids"].items()}
-
-        # Get metafields and put them inside the requested idict.
-        # metafields = {}
-        # TODO: sera que usar >> vai afetar id via ihandkledict?
-        metafields = idict(mfsid, self) if (mfsid := id * self.uid) in self else {}
-        return d >> metafields
+        return idict(id, self)
 
     def send(self, d: Union[DataFrame, idict], name=None, description=None, identity=ø40):
         """Send a dataframe, callable or idict to server"""
@@ -133,9 +132,6 @@ class Oka(CompressedCache):
             d["_description"] = description
 
         # Store.
-        if d.metafields:
-            idict(oid=d.id, uid=self.uid, **d.metafields) >> [[self]]
-            d = d.trimmed
         d >> [[self]]
 
         return d.id
