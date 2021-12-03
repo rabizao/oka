@@ -71,8 +71,8 @@ class Oka(CompressedCache):
         self.user_hosh = ø * (self.login if len(self.login) == 40 else self.login.encode())
 
     def __contains__(self, item):
-        url = f"/api/item/{item}?checkonly=true"
-        return self.request(url, "get").ok
+        url = f"/api/item/{item}/check"
+        return j(self.request(url, "get"))["found"]
 
     def __setitem__(self, id, value, packing=True):
         if self.debug:
@@ -91,6 +91,8 @@ class Oka(CompressedCache):
             print("oka:", colorize128bit("get", 8), id)
         url = f"/api/item/{id}"
         response = self.request(url, "get")
+        if response.status_code == 404:
+            return
         if packing:
             return unpack(response.content)
         return response.content
