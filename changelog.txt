@@ -1,3 +1,6 @@
+v0.211202
+Client now talks to server providing userid to handle metafields
+
 v0.211130
 Add {"id": id, "name": name, "description": description} to send()
 Improve ml example
