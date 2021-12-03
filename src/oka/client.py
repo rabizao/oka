@@ -68,7 +68,7 @@ class Oka(CompressedCache):
         self.login = jwt.decode(self.token, options={"verify_signature": False})["sub"]
         # TODO: change uid to hybrid? unordered? e o alfabeto?
         # TODO: limitar caracteres do login, pra poder usar b"davips----------------------------"?
-        self.user_hosh = ø * ("oka:" + self.login).encode()
+        self.user_hosh = ø * (self.login if len(self.login) == 40 else self.login.encode())
 
     def __contains__(self, item):
         url = f"/api/item/{item}?checkonly=true"
