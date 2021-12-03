@@ -72,15 +72,18 @@ class Oka(CompressedCache):
 
     def __contains__(self, item):
         url = f"/api/item/{item}?checkonly=true"
-        ret = j(self.request(url, "get"))
-        return ret
+        return self.request(url, "get").ok
 
     def __setitem__(self, id, value, packing=True):
+        print("----setitem-------------------")
         if self.debug:
             print("oka:", colorize128bit("set", 8), id)
         url = f"/api/item/{id}"
         content = pack(value, ensure_determinism=False) if packing else value
-        response = j(self.request(url, "post", files={"file": content}))["success"]
+        metadata = {"create_post": True}
+        print(444444444444444444444444)
+        response = self.request(url, "post", data=metadata, files={"file": content})
+        print(3333333333333333333333333)
         if not response and self.debug:
             print(f"Content already stored for id {id}")
             return None
@@ -90,6 +93,7 @@ class Oka(CompressedCache):
         if self.debug:
             print("oka:", colorize128bit("get", 8), id)
         url = f"/api/item/{id}"
+        print(self.login, 7777777777777777777777)
         response = self.request(url, "get")
         if not response:
             raise Exception(f"[Error] Missing key {id} for idict with OID {oid}.")
@@ -133,6 +137,7 @@ class Oka(CompressedCache):
             d["_description"] = description
 
         # Store.
+        print("ssssssssssssssssssssssssssssssssssssssss")
         d >> [[self]]
 
         return d.id
@@ -152,21 +157,13 @@ class Oka(CompressedCache):
         raise NotImplementedError
 
     def request(self, route, method, **kwargs):
-        headers = {"Authorization": "Bearer " + self.token}
-        r = getattr(req, method)(self.url + route, headers=headers, **kwargs)
+        if "headers" not in kwargs:
+            kwargs["headers"] = {}
+        kwargs["headers"]["Authorization"] = "Bearer " + self.token
+        r = getattr(req, method)(self.url + route, **kwargs)
         if r.status_code == 401:  # pragma: no cover
             raise Exception("Token invalid!")
-        elif r.status_code == 422:
-            pass
-        else:
-            if r.ok:
-                return r
-            print(r.content)
-            print(j(r))
-            print(j(r)["errors"])
-            msg = j(r)["errors"]["json"]
-            print(msg)
-            raise Exception(msg)
+        return r
 
     def __lshift__(self, other):
         """Alias to be used within expressions
@@ -176,9 +173,9 @@ class Oka(CompressedCache):
         `value` can be a Data object or a tuple `(value, name, description)`."""
         if isinstance(other, tuple):
             self.send(other[0], *other[1:])
-            return other[0]
+            return self
         self.send(other)
-        return other
+        return self
 
     def __rmatmul__(self, other):
         """Alias to be used within expressions
