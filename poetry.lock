@@ -376,7 +376,7 @@ torch = ["torch"]
 
 [[package]]
 name = "idict"
-version = "1.211203.1"
+version = "1.211203.3"
 description = "Lazy dict with predictable deterministic universally unique identifiers"
 category = "main"
 optional = false
@@ -385,7 +385,7 @@ python-versions = ">=3.8,<4.0"
 [package.dependencies]
 datasets = ">=1.16.1,<2.0.0"
 dill = ">=0.3.4,<0.4.0"
-garoupa = ">=2.211126.1,<3.0.0"
+garoupa = ">=2.211204.1,<3.0.0"
 ldict = ">=3.211202.2,<4.0.0"
 lz4 = ">=3.1.3,<4.0.0"
 orjson = ">=3.5.0,<4.0.0"
@@ -1210,7 +1210,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "3eae04502730ba2883d8db61dfe6fd01b02a1ce26113d9ca7bef17b66ab2c851"
+content-hash = "95cd096ce80557665b732e3d82959af9503a837e08ecb5bd79077478f6ce793a"
 
 [metadata.files]
 aiohttp = [
@@ -1574,8 +1574,8 @@ huggingface-hub = [
     {file = "huggingface_hub-0.2.1.tar.gz", hash = "sha256:b2ef718ea108f0927118b80bef90bef2dd4ddb84454f2dc33267d90de8d33886"},
 ]
 idict = [
-    {file = "idict-1.211203.1-py3-none-any.whl", hash = "sha256:13fe9456741a50ce1cce7c5bd1cdb7322ed570948f3f7f210b985525f03b4a37"},
-    {file = "idict-1.211203.1.tar.gz", hash = "sha256:1a45fbbb47e9774c4fca97516f0a31d4b2af21de975bbe98176eac39ef83063d"},
+    {file = "idict-1.211203.3-py3-none-any.whl", hash = "sha256:8086f42378a8947f1f0c74e3841d4142d3a2837c1dc9996b35d66af08f88a642"},
+    {file = "idict-1.211203.3.tar.gz", hash = "sha256:818eb438aa52831509eda685dccdd4d648d7edee1ab7ee9b9f57fc5facbe1e48"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
