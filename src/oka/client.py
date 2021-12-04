@@ -26,7 +26,7 @@ import requests as req
 from pandas import DataFrame
 
 from garoupa import ø40, ø, Hosh
-from garoupa.misc.colors import colorize128bit
+from garoupa.misc.colors import id2ansi
 from idict import idict
 from idict.data.compression import unpack, pack
 from idict.persistence.compressedcache import CompressedCache
@@ -76,7 +76,7 @@ class Oka(CompressedCache):
 
     def __setitem__(self, id, value, packing=True):
         if self.debug:
-            print("oka:", colorize128bit("set", 8), id)
+            print("oka:", id2ansi("set"), id)
         url = f"/api/item/{id}"
         content = pack(value, ensure_determinism=False) if packing else value
         metadata = {"create_post": True}
@@ -88,7 +88,7 @@ class Oka(CompressedCache):
 
     def __getitem__(self, id, oid="<unknown>", packing=True):
         if self.debug:
-            print("oka:", colorize128bit("get", 8), id)
+            print("oka:", id2ansi("get"), id)
         url = f"/api/item/{id}"
         response = self.request(url, "get")
         if response.status_code == 404:
