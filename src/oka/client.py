@@ -41,7 +41,7 @@ def j(r):
 # TODO (minor): detect identity according to number of digits, to pass it as keyworded argument to idict
 # TODO: Replace packing of pandas by json-like or pandas own solution
 
-
+# TODO: adopt e-mail as a more universal user_id, since they can use other multiuser-capable storages/sites
 @dataclass
 class Oka(CompressedCache):
     """Client for OKA repository
