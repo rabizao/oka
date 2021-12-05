@@ -2,8 +2,8 @@ from getpass import getpass
 
 import numpy
 import requests
-from oka.config import default_url, default_user, default_password
 
+from oka.config import default_url, default_user, default_password
 from .client import Oka
 
 
@@ -26,7 +26,7 @@ def generate_token(url=default_url):
     response = requests.post(f"{url}/api/auth/login", json=data)
     if response and "access_token" in j(response):
         return j(response)["access_token"]
-    raise Exception("[Error] Authentication failed.")
+    raise Exception("[Error] Authentication failed.")  # pragma: no cover
 
 
 def new_data(**kwargs):

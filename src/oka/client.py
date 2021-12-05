@@ -42,6 +42,7 @@ def j(r):
 # TODO: Replace packing of pandas by json-like or pandas own solution
 
 # TODO: adopt e-mail as a more universal user_id, since they can use other multiuser-capable storages/sites
+# TODO: okaserver -> use unique global flask session to avoid complains about sqlite threads
 @dataclass
 class Oka(CompressedCache):
     """Client for OKA repository
@@ -156,7 +157,7 @@ class Oka(CompressedCache):
             kwargs["headers"] = {}
         kwargs["headers"]["Authorization"] = "Bearer " + self.token
         r = getattr(req, method)(self.url + route, **kwargs)
-        if not r:
+        if not r:  # pragma: no cover
             raise Exception(f"[Error] Cannot query server for route {route}.")
         if r.status_code == 401:  # pragma: no cover
             raise Exception("Token invalid!")
