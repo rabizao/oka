@@ -78,11 +78,13 @@ class Oka(CompressedCache):
     def __setitem__(self, id, value, packing=True):
         if self.debug:
             print("oka:", id2ansi("set"), id)
-        url = f"/api/item/{id}"
         content = pack(value, ensure_determinism=False) if packing else value
-        # TODO: checar se é OID ou UID*OID p/ saber se cria post
-        metadata = {"create_post": isinstance(value, dict) and list(value.keys()) == ["_id", "_ids"]}
-        response = self.request(url, "post", data=metadata, files={"file": content})
+        if id.startswith("_"):
+            url = f"/api/item/{value['_id']}"
+            response = self.request(url, "post", data={"create_post": True}, files={"file": content})
+        else:
+            url = f"/api/item/{id}"
+            response = self.request(url, "post", data={"create_post": False}, files={"file": content})
         if not response and self.debug:
             print(f"Content already stored for id {id}")
             return None
@@ -134,7 +136,10 @@ class Oka(CompressedCache):
         if description:
             d["_description"] = description
 
-        # if   TODO  checar e avisar q existe, pois no cache é transparente mas no send não deve ser
+        if d.id in self:
+            print(f"Content already stored for id {d.id}")
+            return d.id
+
         # Store.
         d >> [[self]]
 
@@ -160,7 +165,7 @@ class Oka(CompressedCache):
         kwargs["headers"]["Authorization"] = "Bearer " + self.token
         r = getattr(req, method)(self.url + route, **kwargs)
         if not r:  # pragma: no cover
-            raise Exception(f"[Error] Cannot query server for route {route}.")
+            raise Exception(f"[Error] Cannot query server for route {route}. {r.content}")
         if r.status_code == 401:  # pragma: no cover
             raise Exception("Token invalid!")
         return r
