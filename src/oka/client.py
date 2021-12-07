@@ -80,7 +80,8 @@ class Oka(CompressedCache):
             print("oka:", id2ansi("set"), id)
         url = f"/api/item/{id}"
         content = pack(value, ensure_determinism=False) if packing else value
-        metadata = {"create_post": True}
+        # TODO: checar se é OID ou UID*OID p/ saber se cria post
+        metadata = {"create_post": isinstance(value, dict) and list(value.keys()) == ["_id", "_ids"]}
         response = self.request(url, "post", data=metadata, files={"file": content})
         if not response and self.debug:
             print(f"Content already stored for id {id}")
@@ -133,6 +134,7 @@ class Oka(CompressedCache):
         if description:
             d["_description"] = description
 
+        # if   TODO  checar e avisar q existe, pois no cache é transparente mas no send não deve ser
         # Store.
         d >> [[self]]
 
