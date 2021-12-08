@@ -164,8 +164,8 @@ class Oka(CompressedCache):
             kwargs["headers"] = {}
         kwargs["headers"]["Authorization"] = "Bearer " + self.token
         r = getattr(req, method)(self.url + route, **kwargs)
-        if not r:  # pragma: no cover
-            raise Exception(f"[Error] Cannot query server for route {route}. {r.content}")
+        # if not r:  # pragma: no cover
+        #     raise Exception(f"[Error] Cannot query server for route {route}. {r.content}")
         if r.status_code == 401:  # pragma: no cover
             raise Exception("Token invalid!")
         return r
