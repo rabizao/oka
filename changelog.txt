@@ -1,14 +1,1 @@
-v0.211202
-Client now talks to server providing userid to handle metafields
-
-v0.211130
-Add {"id": id, "name": name, "description": description} to send()
-Improve ml example
-Make fromid() lazy
-Add setblob()
-
-v1.211129
-Move decolorize() to ldict
-
-v1.211128
-Adopt precedence criteria to solve ambiguity when getting OID/contentID from oka.get()
+Updating idict (2.211210.1 -> 3.211211.2)
