@@ -116,7 +116,8 @@ class Oka(CompressedCache):
         if not isinstance(id, str):  # pragma: no cover
             raise Exception(f"Wrong id format: {id}; type: {type(id)}")
         value = self.__getitem__(id, oid=id)
-        if isinstance(value, DataFrame) or callable(value):
+        isdescriptor = isinstance(value, dict) and "_id" in value and "_ids" in value
+        if not isdescriptor:
             return value
 
         # REMINDER: We waste the request above, but return a lazy idict.

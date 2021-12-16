@@ -239,13 +239,13 @@ xxhash = "*"
 apache-beam = ["apache-beam (>=2.26.0)"]
 audio = ["librosa"]
 benchmarks = ["numpy (==1.18.5)", "tensorflow (==2.3.0)", "torch (==1.6.0)", "transformers (==3.0.2)"]
-dev = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[s3,server] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "transformers", "bs4", "conllu", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "black (==21.4b0)", "flake8 (==3.7.9)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)", "importlib-resources"]
+dev = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[server,s3] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "transformers", "bs4", "conllu", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "black (==21.4b0)", "flake8 (==3.7.9)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)", "importlib-resources"]
 docs = ["docutils (==0.16.0)", "recommonmark", "sphinx (==3.1.2)", "sphinx-markdown-tables", "sphinx-rtd-theme (==0.4.3)", "sphinxext-opengraph (==0.4.1)", "sphinx-copybutton", "fsspec (<2021.9.0)", "s3fs", "sphinx-panels", "sphinx-inline-tabs", "myst-parser", "Markdown (!=3.3.5)"]
 quality = ["black (==21.4b0)", "flake8 (==3.7.9)", "isort (>=5.0.0)", "pyyaml (>=5.3.1)"]
 s3 = ["fsspec", "boto3", "botocore", "s3fs"]
 tensorflow = ["tensorflow (>=2.2.0,!=2.6.0,!=2.6.1)"]
 tensorflow_gpu = ["tensorflow-gpu (>=2.2.0,!=2.6.0,!=2.6.1)"]
-tests = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[s3,server] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "transformers", "bs4", "conllu", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "importlib-resources"]
+tests = ["absl-py", "pytest", "pytest-datadir", "pytest-xdist", "apache-beam (>=2.26.0)", "elasticsearch", "aiobotocore", "boto3", "botocore", "faiss-cpu (>=1.6.4)", "fsspec", "moto[server,s3] (==2.0.4)", "rarfile (>=4.0)", "s3fs (==2021.08.1)", "tensorflow (>=2.3,!=2.6.0,!=2.6.1)", "torch", "torchaudio", "transformers", "bs4", "conllu", "langdetect", "lxml", "mwparserfromhell", "nltk", "openpyxl", "py7zr", "tldextract", "zstandard", "bert-score (>=0.3.6)", "rouge-score", "sacrebleu", "scipy", "seqeval", "scikit-learn", "jiwer", "sentencepiece", "toml (>=0.10.1)", "requests-file (>=1.5.1)", "tldextract (>=3.1.0)", "texttable (>=1.6.3)", "Werkzeug (>=1.0.1)", "six (>=1.15.0,<1.16.0)", "wget (>=3.2)", "pytorch-nlp (==0.5.0)", "pytorch-lightning", "fastBPE (==0.1.0)", "fairseq", "importlib-resources"]
 torch = ["torch"]
 
 [[package]]
@@ -375,7 +375,7 @@ torch = ["torch"]
 
 [[package]]
 name = "idict"
-version = "3.211211.2"
+version = "3.211215.1"
 description = "Lazy dict with predictable deterministic universally unique identifiers"
 category = "main"
 optional = false
@@ -1201,7 +1201,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "d646759c3f2e0429728666f6b4b8700adde24b084f1666350c0a6b5ec45d4020"
+content-hash = "5e7e618807ea0b77b690025636d35729b6b5d509f478b24f2a7c02008e85255b"
 
 [metadata.files]
 aiohttp = [
@@ -1565,8 +1565,8 @@ huggingface-hub = [
     {file = "huggingface_hub-0.2.1.tar.gz", hash = "sha256:b2ef718ea108f0927118b80bef90bef2dd4ddb84454f2dc33267d90de8d33886"},
 ]
 idict = [
-    {file = "idict-3.211211.2-py3-none-any.whl", hash = "sha256:45006a1df9e4a361ec983f22c465387351dd744e6010e0e3c7e8a1bfdcfae579"},
-    {file = "idict-3.211211.2.tar.gz", hash = "sha256:f3eeb85092ed4b8a1393c0f7ad781c4a546ce12caac4fa8b55fb5f6462b48c93"},
+    {file = "idict-3.211215.1-py3-none-any.whl", hash = "sha256:173f78a75609e34d41ade79a623de825500a130b3070b493a828058e81cb7938"},
+    {file = "idict-3.211215.1.tar.gz", hash = "sha256:73d96893e44cd40a45bdea0004e04e094be0044c2cfc46cbf6339f152539a5dd"},
 ]
 idna = [
     {file = "idna-3.3-py3-none-any.whl", hash = "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff"},
