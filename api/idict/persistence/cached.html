@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>idict.persistence.cached API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>idict.persistence.cached</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">#  Copyright (c) 2021. Davi Pereira dos Santos
+#  This file is part of the idict project.
+#  Please respect the license - more about this in the section (*) below.
+#
+#  idict is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  idict is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with idict.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+#
+#  (*) Removing authorship by any means, e.g. by distribution of derived
+#  works or verbatim, obfuscated, compiled or rewritten versions of any
+#  part of this work is illegal and unethical regarding the effort and
+#  time spent here.
+import json
+
+from ldict.core.base import AbstractLazyDict
+from ldict.lazyval import LazyVal
+
+
+# TODO: store metafield even if idict-id is already stored
+def storevalue_func(cache):
+    def f(k, id, value):
+        cache[id] = value
+
+    return f
+
+
+def storeblob_func(cache, blobs):
+    def f(k, id, value):
+        if k in blobs:
+            cache.setblob(id, blobs[k])
+        else:
+            cache[id] = value
+
+    return f
+
+
+def cached(d, cache) -&gt; AbstractLazyDict:
+    &#34;&#34;&#34;
+    Store each value (fid: value) and an extra value containing the fids (did: {&#34;_id&#34;: did, &#34;_ids&#34;: fids}).
+    When the dict is a singleton, we have to use id² as dict id to workaround the ambiguity did=fid.
+
+    Lock the id during the job, to avoid duplicate jobs in a distributed system, if supported by the provided cache.
+    &#34;&#34;&#34;
+    # TODO: gravar hashes como aliases no cache pros hoshes. tb recuperar. [serve p/ poupar espaço. e tráfego se usar duplo cache local-remoto]
+    #  mas hash não é antecipável! &#39;cached&#39; teria de fazer o ponteiro: ho -&gt; {&#34;_id&#34;: &#34;. . .&#34;}.  aproveitar pack() para guardar todo valor assim.
+    from idict.core.idict_ import Idict
+    from idict.core.frozenidentifieddict import FrozenIdentifiedDict
+
+    # TODO (minor): do the same for fetch(). useful in the future if needed to speedup syncing of caches avoiding *pack
+    store = storeblob_func(cache, d.blobs) if hasattr(cache, &#34;setblob&#34;) else storevalue_func(cache)
+    front_id = &#34;_&#34; + d.id[1:]
+
+    def closure(outputf, fid, fids, data, output_fields, id):
+        def func(**kwargs):
+            # Try loading.
+            if fid in cache:
+                return get_following_pointers(fid, cache)
+
+            # Lock the id for this job.
+            if hasattr(cache, &#34;lock&#34;):
+                if (t := cache.lockid(fid)) is not None:
+                    raise LockedEntryException(f&#34;There is already a job producing the data {fid}, since {t}.&#34;)
+
+            # Process and save (all fields, to avoid a parcial idict being stored).
+            k = None
+            for k, v in fids.items():
+                if isinstance(data[k], LazyVal):
+                    data[k] = data[k](**kwargs)
+                if isinstance(data[k], (FrozenIdentifiedDict, Idict)):
+                    cache[v] = {&#34;_id&#34;: &#34;_&#34; + data[k].id[1:]}
+                    data[k] = cached(data[k], cache)
+                elif k not in cache:
+                    store(k, v, data[k])
+            if (result := data[outputf]) is None:  # pragma: no cover
+                if k is None:
+                    raise Exception(f&#34;No ids&#34;)
+                raise Exception(f&#34;Key {k} not in output fields: {output_fields}. ids: {fids.items()}&#34;)
+
+            front_id_ = front_id
+            if hasattr(cache, &#34;user_hosh&#34;):
+                # print(&#34;has hosh&#34;, d.id)
+                if front_id_ not in cache:
+                    cache[front_id_] = {&#34;_id&#34;: id, &#34;_ids&#34;: {k: v for k, v in fids.items() if not k.startswith(&#34;_&#34;)}}
+                front_id_ = (d.id * cache.user_hosh).id
+            cache[front_id_] = {&#34;_id&#34;: id, &#34;_ids&#34;: fids}
+
+            # Unlock id.
+            if hasattr(cache, &#34;unlock&#34;):
+                cache.unlockid(fid)
+            return result
+
+        return func
+
+    data = d.data.copy()
+    lazies = False
+    output_fields = []
+    for field, v in list(data.items()):
+        if isinstance(v, LazyVal):
+            # REMINDER: Check removed because metafield values recovered from cache are lazy.
+            # if field.startswith(&#34;_&#34;):  # pragma: no cover
+            #     raise Exception(&#34;Cannot have a lazy value in a metafield.&#34;, field)
+            output_fields.append(field)
+            lazies = True
+            id = d.hashes[field].id if field in d.hashes else d.hoshes[field].id
+            deps = {&#34;↑&#34;: None}
+            deps.update(v.deps)
+            lazy = LazyVal(field, closure(field, id, d.ids, d.data, output_fields, d.id), deps, data, None)
+            data[field] = lazy
+
+    # Eager saving when there are no lazies.
+    if not lazies:
+        for k, fid in d.ids.items():
+            if fid not in cache:
+                if isinstance(data[k], (FrozenIdentifiedDict, Idict)):
+                    cache[fid] = {&#34;_id&#34;: &#34;_&#34; + data[k].id[1:]}
+                    data[k] = cached(data[k], cache)
+                else:
+                    store(k, fid, data[k])
+        if front_id not in cache:
+            if hasattr(cache, &#34;user_hosh&#34;):
+                cache[front_id] = {&#34;_id&#34;: d.id, &#34;_ids&#34;: {k: v for k, v in d.ids.items() if not k.startswith(&#34;_&#34;)}}
+                front_id = (d.id * cache.user_hosh).id
+            cache[front_id] = {&#34;_id&#34;: d.id, &#34;_ids&#34;: d.ids}
+
+    return d.clone(data)
+
+
+def build(id, ids, cache, identity, include_blobs=False):
+    &#34;&#34;&#34;Build an idict from a given identity
+
+    &gt;&gt;&gt; from idict import idict
+    &gt;&gt;&gt; a = idict(x=5,z=9)
+    &gt;&gt;&gt; b = idict(y=7)
+    &gt;&gt;&gt; b[&#34;d&#34;] = a
+    &gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+    &gt;&gt;&gt; print(json.dumps(cache, indent=2))
+    {
+      &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;: 7,
+      &#34;u9_698c410308e557c005cda07ba00c564152401&#34;: {
+        &#34;_id&#34;: &#34;_._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;
+      },
+      &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;: 5,
+      &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;: 9,
+      &#34;_._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;: {
+        &#34;_id&#34;: &#34;r._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;,
+        &#34;_ids&#34;: {
+          &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+          &#34;z&#34;: &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;
+        }
+      },
+      &#34;_U_ab54a36ac6988bc6722654831fc721f5777ae&#34;: {
+        &#34;_id&#34;: &#34;oU_ab54a36ac6988bc6722654831fc721f5777ae&#34;,
+        &#34;_ids&#34;: {
+          &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;,
+          &#34;d&#34;: &#34;u9_698c410308e557c005cda07ba00c564152401&#34;
+        }
+      }
+    }
+    &gt;&gt;&gt; build(b.id, b.ids, cache, b.hosh.ø).evaluated.show(colored=False)
+    {
+        &#34;y&#34;: 7,
+        &#34;d&#34;: {
+            &#34;x&#34;: 5,
+            &#34;z&#34;: 9,
+            &#34;_id&#34;: &#34;r._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;,
+            &#34;_ids&#34;: {
+                &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+                &#34;z&#34;: &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;
+            }
+        },
+        &#34;_id&#34;: &#34;oU_ab54a36ac6988bc6722654831fc721f5777ae&#34;,
+        &#34;_ids&#34;: {
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;,
+            &#34;d&#34;: &#34;u9_698c410308e557c005cda07ba00c564152401 (content: r._72191dfc2ed7d9ff4c35d514b103ac114161f)&#34;
+        }
+    }
+    &gt;&gt;&gt; (a.hosh ** b&#34;d&#34;).show(colored=False)
+    u9_698c410308e557c005cda07ba00c564152401
+    &gt;&gt;&gt; a = idict(x=5)
+    &gt;&gt;&gt; b = idict(y=7)
+    &gt;&gt;&gt; b[&#34;d&#34;] = a
+    &gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+    &gt;&gt;&gt; print(json.dumps(cache, indent=2))
+    {
+      &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;: 7,
+      &#34;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af&#34;: {
+        &#34;_id&#34;: &#34;_S_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+      },
+      &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;: 5,
+      &#34;_S_cb0fda15eac732cb08351e71fc359058b93bd&#34;: {
+        &#34;_id&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+        &#34;_ids&#34;: {
+          &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+        }
+      },
+      &#34;_L_a791c4ff8388e3923e169ce05a0a152def44d&#34;: {
+        &#34;_id&#34;: &#34;DL_a791c4ff8388e3923e169ce05a0a152def44d&#34;,
+        &#34;_ids&#34;: {
+          &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;,
+          &#34;d&#34;: &#34;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af&#34;
+        }
+      }
+    }
+    &gt;&gt;&gt; d = build(b.id, b.ids, cache, b.hosh.ø)
+    &gt;&gt;&gt; d.show(colored=False)
+    {
+        &#34;y&#34;: &#34;→(↑)&#34;,
+        &#34;d&#34;: &#34;→(↑)&#34;,
+        &#34;_id&#34;: &#34;DL_a791c4ff8388e3923e169ce05a0a152def44d&#34;,
+        &#34;_ids&#34;: {
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;,
+            &#34;d&#34;: &#34;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af (content: GS_cb0fda15eac732cb08351e71fc359058b93bd)&#34;
+        }
+    }
+    &gt;&gt;&gt; d.evaluated.show(colored=False)
+    {
+        &#34;y&#34;: 7,
+        &#34;d&#34;: {
+            &#34;x&#34;: 5,
+            &#34;_id&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+            &#34;_ids&#34;: {
+                &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+            }
+        },
+        &#34;_id&#34;: &#34;DL_a791c4ff8388e3923e169ce05a0a152def44d&#34;,
+        &#34;_ids&#34;: {
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;,
+            &#34;d&#34;: &#34;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af (content: GS_cb0fda15eac732cb08351e71fc359058b93bd)&#34;
+        }
+    }
+    &gt;&gt;&gt; (a.hosh ** b&#34;d&#34;).show(colored=False)
+    I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af
+    &gt;&gt;&gt; a = idict(x=5,z=9)
+    &gt;&gt;&gt; b = idict(y=7)
+    &gt;&gt;&gt; b[&#34;d&#34;] = lambda y: a
+    &gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+    &gt;&gt;&gt; _ = b.d
+    &gt;&gt;&gt; print(json.dumps(cache, indent=2))  # doctest:+ELLIPSIS
+    {
+      &#34;h8xF5VS3x8yt.ZM3I1D1oKzdS6GcYmec-Y0cnAIl&#34;: {
+        &#34;_id&#34;: &#34;_._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;
+      },
+      &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;: 5,
+      &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;: 9,
+      &#34;_._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;: {
+        &#34;_id&#34;: &#34;r._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;,
+        &#34;_ids&#34;: {
+          &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+          &#34;z&#34;: &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;
+        }
+      },
+      &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;: 7,
+      &#34;_P9idohZcsojDgKThROI-YoSzRBcYmec-Y0cnAIl&#34;: {
+        &#34;_id&#34;: &#34;UP9idohZcsojDgKThROI-YoSzRBcYmec-Y0cnAIl&#34;,
+        &#34;_ids&#34;: {
+          &#34;d&#34;: &#34;h8xF5VS3x8yt.ZM3I1D1oKzdS6GcYmec-Y0cnAIl&#34;,
+          &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;
+        }
+      }
+    }
+    &gt;&gt;&gt; build(b.id, b.ids, cache, b.hosh.ø).evaluated.show(colored=False)  # doctest:+ELLIPSIS
+    {
+        &#34;d&#34;: {
+            &#34;x&#34;: 5,
+            &#34;z&#34;: 9,
+            &#34;_id&#34;: &#34;r._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;,
+            &#34;_ids&#34;: {
+                &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+                &#34;z&#34;: &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;
+            }
+        },
+        &#34;y&#34;: 7,
+        &#34;_id&#34;: &#34;...&#34;,
+        &#34;_ids&#34;: {
+            &#34;d&#34;: &#34;...&#34;,
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;
+        }
+    }
+    &gt;&gt;&gt; (a.hosh ** b&#34;d&#34;).show(colored=False)
+    u9_698c410308e557c005cda07ba00c564152401
+    &gt;&gt;&gt; a = idict(x=5)
+    &gt;&gt;&gt; b = idict(y=7)
+    &gt;&gt;&gt; b[&#34;d&#34;] = lambda y: a
+    &gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+    &gt;&gt;&gt; _ = b.d
+    &gt;&gt;&gt; print(json.dumps(cache, indent=2))  # doctest:+ELLIPSIS
+    {
+      &#34;...&#34;: {
+        &#34;_id&#34;: &#34;_S_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+      },
+      &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;: 5,
+      &#34;_S_cb0fda15eac732cb08351e71fc359058b93bd&#34;: {
+        &#34;_id&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+        &#34;_ids&#34;: {
+          &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+        }
+      },
+      &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;: 7,
+      &#34;...&#34;: {
+        &#34;_id&#34;: &#34;...&#34;,
+        &#34;_ids&#34;: {
+          &#34;d&#34;: &#34;...&#34;,
+          &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;
+        }
+      }
+    }
+    &gt;&gt;&gt; d = build(b.id, b.ids, cache, b.hosh.ø)
+    &gt;&gt;&gt; d.show(colored=False)  # doctest:+ELLIPSIS
+    {
+        &#34;d&#34;: &#34;→(↑)&#34;,
+        &#34;y&#34;: &#34;→(↑)&#34;,
+        &#34;_id&#34;: &#34;...&#34;,
+        &#34;_ids&#34;: {
+            &#34;d&#34;: &#34;...&#34;,
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;
+        }
+    }
+    &gt;&gt;&gt; d.evaluated.show(colored=False)  # doctest:+ELLIPSIS
+    {
+        &#34;d&#34;: {
+            &#34;x&#34;: 5,
+            &#34;_id&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+            &#34;_ids&#34;: {
+                &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+            }
+        },
+        &#34;y&#34;: 7,
+        &#34;_id&#34;: &#34;...&#34;,
+        &#34;_ids&#34;: {
+            &#34;d&#34;: &#34;...&#34;,
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;
+        }
+    }
+    &gt;&gt;&gt; (a.hosh ** b&#34;d&#34;).show(colored=False)
+    I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af
+    &#34;&#34;&#34;
+    from idict.core.frozenidentifieddict import FrozenIdentifiedDict
+
+    if include_blobs:
+        raise NotImplementedError
+    hosh = identity * id
+    data, hashes, hoshes = {}, {}, {}
+    for k, fid in ids.items():
+        # REMINDER: An item id will never start with &#39;_&#39;. That only happens with singleton-idict id translated to cache.
+        if fid in cache:
+            value = get_following_pointers(fid, cache)
+            # WARN: The closures bellow assume items will not be removed from &#39;cache&#39; in the meantime.
+            if isinstance(value, dict) and list(value.keys()) == [&#34;_id&#34;, &#34;_ids&#34;]:
+                closure = lambda value_: lambda **kwargs: build(value_[&#34;_id&#34;], value_[&#34;_ids&#34;], cache, identity)
+                data[k] = LazyVal(k, closure(value), {&#34;↑&#34;: None}, {}, None)
+            else:
+                closure = lambda fid_: lambda **kwargs: cache[fid_]
+                data[k] = LazyVal(k, closure(fid), {&#34;↑&#34;: None}, {}, None)
+        else:  # pragma: no cover
+            raise Exception(f&#34;Missing key={fid} or singleton key=_{fid[1:]}.\n{json.dumps(cache, indent=2)}&#34;)
+        hoshes[k] = identity * fid
+        if fid[2] == &#34;_&#34;:
+            hashes[k] = hoshes[k] // k.encode()
+
+    internals = dict(blobs={}, hashes=hashes, hoshes=hoshes, hosh=hosh)
+    return FrozenIdentifiedDict(data, identity=identity, _cloned=internals)
+
+
+def get_following_pointers(fid, cache):
+    &#34;&#34;&#34;Fetch item value from cache following pointers&#34;&#34;&#34;
+    result = cache[fid]
+    while isinstance(result, dict) and list(result.keys()) == [&#34;_id&#34;]:
+        result = cache[result[&#34;_id&#34;]]
+    return result
+
+
+class LockedEntryException(Exception):
+    pass</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="idict.persistence.cached.build"><code class="name flex">
+<span>def <span class="ident">build</span></span>(<span>id, ids, cache, identity, include_blobs=False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Build an idict from a given identity</p>
+<pre><code class="language-python-repl">&gt;&gt;&gt; from idict import idict
+&gt;&gt;&gt; a = idict(x=5,z=9)
+&gt;&gt;&gt; b = idict(y=7)
+&gt;&gt;&gt; b[&quot;d&quot;] = a
+&gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+&gt;&gt;&gt; print(json.dumps(cache, indent=2))
+{
+  &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad&quot;: 7,
+  &quot;u9_698c410308e557c005cda07ba00c564152401&quot;: {
+    &quot;_id&quot;: &quot;_._72191dfc2ed7d9ff4c35d514b103ac114161f&quot;
+  },
+  &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;: 5,
+  &quot;N8_524991e7434b2d3444007782c4cd0cd887261&quot;: 9,
+  &quot;_._72191dfc2ed7d9ff4c35d514b103ac114161f&quot;: {
+    &quot;_id&quot;: &quot;r._72191dfc2ed7d9ff4c35d514b103ac114161f&quot;,
+    &quot;_ids&quot;: {
+      &quot;x&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;,
+      &quot;z&quot;: &quot;N8_524991e7434b2d3444007782c4cd0cd887261&quot;
+    }
+  },
+  &quot;_U_ab54a36ac6988bc6722654831fc721f5777ae&quot;: {
+    &quot;_id&quot;: &quot;oU_ab54a36ac6988bc6722654831fc721f5777ae&quot;,
+    &quot;_ids&quot;: {
+      &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad&quot;,
+      &quot;d&quot;: &quot;u9_698c410308e557c005cda07ba00c564152401&quot;
+    }
+  }
+}
+&gt;&gt;&gt; build(b.id, b.ids, cache, b.hosh.ø).evaluated.show(colored=False)
+{
+    &quot;y&quot;: 7,
+    &quot;d&quot;: {
+        &quot;x&quot;: 5,
+        &quot;z&quot;: 9,
+        &quot;_id&quot;: &quot;r._72191dfc2ed7d9ff4c35d514b103ac114161f&quot;,
+        &quot;_ids&quot;: {
+            &quot;x&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;,
+            &quot;z&quot;: &quot;N8_524991e7434b2d3444007782c4cd0cd887261&quot;
+        }
+    },
+    &quot;_id&quot;: &quot;oU_ab54a36ac6988bc6722654831fc721f5777ae&quot;,
+    &quot;_ids&quot;: {
+        &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&quot;,
+        &quot;d&quot;: &quot;u9_698c410308e557c005cda07ba00c564152401 (content: r._72191dfc2ed7d9ff4c35d514b103ac114161f)&quot;
+    }
+}
+&gt;&gt;&gt; (a.hosh ** b&quot;d&quot;).show(colored=False)
+u9_698c410308e557c005cda07ba00c564152401
+&gt;&gt;&gt; a = idict(x=5)
+&gt;&gt;&gt; b = idict(y=7)
+&gt;&gt;&gt; b[&quot;d&quot;] = a
+&gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+&gt;&gt;&gt; print(json.dumps(cache, indent=2))
+{
+  &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad&quot;: 7,
+  &quot;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af&quot;: {
+    &quot;_id&quot;: &quot;_S_cb0fda15eac732cb08351e71fc359058b93bd&quot;
+  },
+  &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;: 5,
+  &quot;_S_cb0fda15eac732cb08351e71fc359058b93bd&quot;: {
+    &quot;_id&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;,
+    &quot;_ids&quot;: {
+      &quot;x&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;
+    }
+  },
+  &quot;_L_a791c4ff8388e3923e169ce05a0a152def44d&quot;: {
+    &quot;_id&quot;: &quot;DL_a791c4ff8388e3923e169ce05a0a152def44d&quot;,
+    &quot;_ids&quot;: {
+      &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad&quot;,
+      &quot;d&quot;: &quot;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af&quot;
+    }
+  }
+}
+&gt;&gt;&gt; d = build(b.id, b.ids, cache, b.hosh.ø)
+&gt;&gt;&gt; d.show(colored=False)
+{
+    &quot;y&quot;: &quot;→(↑)&quot;,
+    &quot;d&quot;: &quot;→(↑)&quot;,
+    &quot;_id&quot;: &quot;DL_a791c4ff8388e3923e169ce05a0a152def44d&quot;,
+    &quot;_ids&quot;: {
+        &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&quot;,
+        &quot;d&quot;: &quot;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af (content: GS_cb0fda15eac732cb08351e71fc359058b93bd)&quot;
+    }
+}
+&gt;&gt;&gt; d.evaluated.show(colored=False)
+{
+    &quot;y&quot;: 7,
+    &quot;d&quot;: {
+        &quot;x&quot;: 5,
+        &quot;_id&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;,
+        &quot;_ids&quot;: {
+            &quot;x&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;
+        }
+    },
+    &quot;_id&quot;: &quot;DL_a791c4ff8388e3923e169ce05a0a152def44d&quot;,
+    &quot;_ids&quot;: {
+        &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&quot;,
+        &quot;d&quot;: &quot;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af (content: GS_cb0fda15eac732cb08351e71fc359058b93bd)&quot;
+    }
+}
+&gt;&gt;&gt; (a.hosh ** b&quot;d&quot;).show(colored=False)
+I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af
+&gt;&gt;&gt; a = idict(x=5,z=9)
+&gt;&gt;&gt; b = idict(y=7)
+&gt;&gt;&gt; b[&quot;d&quot;] = lambda y: a
+&gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+&gt;&gt;&gt; _ = b.d
+&gt;&gt;&gt; print(json.dumps(cache, indent=2))  # doctest:+ELLIPSIS
+{
+  &quot;h8xF5VS3x8yt.ZM3I1D1oKzdS6GcYmec-Y0cnAIl&quot;: {
+    &quot;_id&quot;: &quot;_._72191dfc2ed7d9ff4c35d514b103ac114161f&quot;
+  },
+  &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;: 5,
+  &quot;N8_524991e7434b2d3444007782c4cd0cd887261&quot;: 9,
+  &quot;_._72191dfc2ed7d9ff4c35d514b103ac114161f&quot;: {
+    &quot;_id&quot;: &quot;r._72191dfc2ed7d9ff4c35d514b103ac114161f&quot;,
+    &quot;_ids&quot;: {
+      &quot;x&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;,
+      &quot;z&quot;: &quot;N8_524991e7434b2d3444007782c4cd0cd887261&quot;
+    }
+  },
+  &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad&quot;: 7,
+  &quot;_P9idohZcsojDgKThROI-YoSzRBcYmec-Y0cnAIl&quot;: {
+    &quot;_id&quot;: &quot;UP9idohZcsojDgKThROI-YoSzRBcYmec-Y0cnAIl&quot;,
+    &quot;_ids&quot;: {
+      &quot;d&quot;: &quot;h8xF5VS3x8yt.ZM3I1D1oKzdS6GcYmec-Y0cnAIl&quot;,
+      &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad&quot;
+    }
+  }
+}
+&gt;&gt;&gt; build(b.id, b.ids, cache, b.hosh.ø).evaluated.show(colored=False)  # doctest:+ELLIPSIS
+{
+    &quot;d&quot;: {
+        &quot;x&quot;: 5,
+        &quot;z&quot;: 9,
+        &quot;_id&quot;: &quot;r._72191dfc2ed7d9ff4c35d514b103ac114161f&quot;,
+        &quot;_ids&quot;: {
+            &quot;x&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;,
+            &quot;z&quot;: &quot;N8_524991e7434b2d3444007782c4cd0cd887261&quot;
+        }
+    },
+    &quot;y&quot;: 7,
+    &quot;_id&quot;: &quot;...&quot;,
+    &quot;_ids&quot;: {
+        &quot;d&quot;: &quot;...&quot;,
+        &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&quot;
+    }
+}
+&gt;&gt;&gt; (a.hosh ** b&quot;d&quot;).show(colored=False)
+u9_698c410308e557c005cda07ba00c564152401
+&gt;&gt;&gt; a = idict(x=5)
+&gt;&gt;&gt; b = idict(y=7)
+&gt;&gt;&gt; b[&quot;d&quot;] = lambda y: a
+&gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+&gt;&gt;&gt; _ = b.d
+&gt;&gt;&gt; print(json.dumps(cache, indent=2))  # doctest:+ELLIPSIS
+{
+  &quot;...&quot;: {
+    &quot;_id&quot;: &quot;_S_cb0fda15eac732cb08351e71fc359058b93bd&quot;
+  },
+  &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;: 5,
+  &quot;_S_cb0fda15eac732cb08351e71fc359058b93bd&quot;: {
+    &quot;_id&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;,
+    &quot;_ids&quot;: {
+      &quot;x&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;
+    }
+  },
+  &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad&quot;: 7,
+  &quot;...&quot;: {
+    &quot;_id&quot;: &quot;...&quot;,
+    &quot;_ids&quot;: {
+      &quot;d&quot;: &quot;...&quot;,
+      &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad&quot;
+    }
+  }
+}
+&gt;&gt;&gt; d = build(b.id, b.ids, cache, b.hosh.ø)
+&gt;&gt;&gt; d.show(colored=False)  # doctest:+ELLIPSIS
+{
+    &quot;d&quot;: &quot;→(↑)&quot;,
+    &quot;y&quot;: &quot;→(↑)&quot;,
+    &quot;_id&quot;: &quot;...&quot;,
+    &quot;_ids&quot;: {
+        &quot;d&quot;: &quot;...&quot;,
+        &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&quot;
+    }
+}
+&gt;&gt;&gt; d.evaluated.show(colored=False)  # doctest:+ELLIPSIS
+{
+    &quot;d&quot;: {
+        &quot;x&quot;: 5,
+        &quot;_id&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;,
+        &quot;_ids&quot;: {
+            &quot;x&quot;: &quot;GS_cb0fda15eac732cb08351e71fc359058b93bd&quot;
+        }
+    },
+    &quot;y&quot;: 7,
+    &quot;_id&quot;: &quot;...&quot;,
+    &quot;_ids&quot;: {
+        &quot;d&quot;: &quot;...&quot;,
+        &quot;y&quot;: &quot;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&quot;
+    }
+}
+&gt;&gt;&gt; (a.hosh ** b&quot;d&quot;).show(colored=False)
+I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build(id, ids, cache, identity, include_blobs=False):
+    &#34;&#34;&#34;Build an idict from a given identity
+
+    &gt;&gt;&gt; from idict import idict
+    &gt;&gt;&gt; a = idict(x=5,z=9)
+    &gt;&gt;&gt; b = idict(y=7)
+    &gt;&gt;&gt; b[&#34;d&#34;] = a
+    &gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+    &gt;&gt;&gt; print(json.dumps(cache, indent=2))
+    {
+      &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;: 7,
+      &#34;u9_698c410308e557c005cda07ba00c564152401&#34;: {
+        &#34;_id&#34;: &#34;_._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;
+      },
+      &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;: 5,
+      &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;: 9,
+      &#34;_._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;: {
+        &#34;_id&#34;: &#34;r._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;,
+        &#34;_ids&#34;: {
+          &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+          &#34;z&#34;: &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;
+        }
+      },
+      &#34;_U_ab54a36ac6988bc6722654831fc721f5777ae&#34;: {
+        &#34;_id&#34;: &#34;oU_ab54a36ac6988bc6722654831fc721f5777ae&#34;,
+        &#34;_ids&#34;: {
+          &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;,
+          &#34;d&#34;: &#34;u9_698c410308e557c005cda07ba00c564152401&#34;
+        }
+      }
+    }
+    &gt;&gt;&gt; build(b.id, b.ids, cache, b.hosh.ø).evaluated.show(colored=False)
+    {
+        &#34;y&#34;: 7,
+        &#34;d&#34;: {
+            &#34;x&#34;: 5,
+            &#34;z&#34;: 9,
+            &#34;_id&#34;: &#34;r._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;,
+            &#34;_ids&#34;: {
+                &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+                &#34;z&#34;: &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;
+            }
+        },
+        &#34;_id&#34;: &#34;oU_ab54a36ac6988bc6722654831fc721f5777ae&#34;,
+        &#34;_ids&#34;: {
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;,
+            &#34;d&#34;: &#34;u9_698c410308e557c005cda07ba00c564152401 (content: r._72191dfc2ed7d9ff4c35d514b103ac114161f)&#34;
+        }
+    }
+    &gt;&gt;&gt; (a.hosh ** b&#34;d&#34;).show(colored=False)
+    u9_698c410308e557c005cda07ba00c564152401
+    &gt;&gt;&gt; a = idict(x=5)
+    &gt;&gt;&gt; b = idict(y=7)
+    &gt;&gt;&gt; b[&#34;d&#34;] = a
+    &gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+    &gt;&gt;&gt; print(json.dumps(cache, indent=2))
+    {
+      &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;: 7,
+      &#34;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af&#34;: {
+        &#34;_id&#34;: &#34;_S_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+      },
+      &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;: 5,
+      &#34;_S_cb0fda15eac732cb08351e71fc359058b93bd&#34;: {
+        &#34;_id&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+        &#34;_ids&#34;: {
+          &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+        }
+      },
+      &#34;_L_a791c4ff8388e3923e169ce05a0a152def44d&#34;: {
+        &#34;_id&#34;: &#34;DL_a791c4ff8388e3923e169ce05a0a152def44d&#34;,
+        &#34;_ids&#34;: {
+          &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;,
+          &#34;d&#34;: &#34;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af&#34;
+        }
+      }
+    }
+    &gt;&gt;&gt; d = build(b.id, b.ids, cache, b.hosh.ø)
+    &gt;&gt;&gt; d.show(colored=False)
+    {
+        &#34;y&#34;: &#34;→(↑)&#34;,
+        &#34;d&#34;: &#34;→(↑)&#34;,
+        &#34;_id&#34;: &#34;DL_a791c4ff8388e3923e169ce05a0a152def44d&#34;,
+        &#34;_ids&#34;: {
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;,
+            &#34;d&#34;: &#34;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af (content: GS_cb0fda15eac732cb08351e71fc359058b93bd)&#34;
+        }
+    }
+    &gt;&gt;&gt; d.evaluated.show(colored=False)
+    {
+        &#34;y&#34;: 7,
+        &#34;d&#34;: {
+            &#34;x&#34;: 5,
+            &#34;_id&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+            &#34;_ids&#34;: {
+                &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+            }
+        },
+        &#34;_id&#34;: &#34;DL_a791c4ff8388e3923e169ce05a0a152def44d&#34;,
+        &#34;_ids&#34;: {
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;,
+            &#34;d&#34;: &#34;I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af (content: GS_cb0fda15eac732cb08351e71fc359058b93bd)&#34;
+        }
+    }
+    &gt;&gt;&gt; (a.hosh ** b&#34;d&#34;).show(colored=False)
+    I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af
+    &gt;&gt;&gt; a = idict(x=5,z=9)
+    &gt;&gt;&gt; b = idict(y=7)
+    &gt;&gt;&gt; b[&#34;d&#34;] = lambda y: a
+    &gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+    &gt;&gt;&gt; _ = b.d
+    &gt;&gt;&gt; print(json.dumps(cache, indent=2))  # doctest:+ELLIPSIS
+    {
+      &#34;h8xF5VS3x8yt.ZM3I1D1oKzdS6GcYmec-Y0cnAIl&#34;: {
+        &#34;_id&#34;: &#34;_._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;
+      },
+      &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;: 5,
+      &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;: 9,
+      &#34;_._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;: {
+        &#34;_id&#34;: &#34;r._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;,
+        &#34;_ids&#34;: {
+          &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+          &#34;z&#34;: &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;
+        }
+      },
+      &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;: 7,
+      &#34;_P9idohZcsojDgKThROI-YoSzRBcYmec-Y0cnAIl&#34;: {
+        &#34;_id&#34;: &#34;UP9idohZcsojDgKThROI-YoSzRBcYmec-Y0cnAIl&#34;,
+        &#34;_ids&#34;: {
+          &#34;d&#34;: &#34;h8xF5VS3x8yt.ZM3I1D1oKzdS6GcYmec-Y0cnAIl&#34;,
+          &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;
+        }
+      }
+    }
+    &gt;&gt;&gt; build(b.id, b.ids, cache, b.hosh.ø).evaluated.show(colored=False)  # doctest:+ELLIPSIS
+    {
+        &#34;d&#34;: {
+            &#34;x&#34;: 5,
+            &#34;z&#34;: 9,
+            &#34;_id&#34;: &#34;r._72191dfc2ed7d9ff4c35d514b103ac114161f&#34;,
+            &#34;_ids&#34;: {
+                &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+                &#34;z&#34;: &#34;N8_524991e7434b2d3444007782c4cd0cd887261&#34;
+            }
+        },
+        &#34;y&#34;: 7,
+        &#34;_id&#34;: &#34;...&#34;,
+        &#34;_ids&#34;: {
+            &#34;d&#34;: &#34;...&#34;,
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;
+        }
+    }
+    &gt;&gt;&gt; (a.hosh ** b&#34;d&#34;).show(colored=False)
+    u9_698c410308e557c005cda07ba00c564152401
+    &gt;&gt;&gt; a = idict(x=5)
+    &gt;&gt;&gt; b = idict(y=7)
+    &gt;&gt;&gt; b[&#34;d&#34;] = lambda y: a
+    &gt;&gt;&gt; b &gt;&gt;= [cache := {}]
+    &gt;&gt;&gt; _ = b.d
+    &gt;&gt;&gt; print(json.dumps(cache, indent=2))  # doctest:+ELLIPSIS
+    {
+      &#34;...&#34;: {
+        &#34;_id&#34;: &#34;_S_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+      },
+      &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;: 5,
+      &#34;_S_cb0fda15eac732cb08351e71fc359058b93bd&#34;: {
+        &#34;_id&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+        &#34;_ids&#34;: {
+          &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+        }
+      },
+      &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;: 7,
+      &#34;...&#34;: {
+        &#34;_id&#34;: &#34;...&#34;,
+        &#34;_ids&#34;: {
+          &#34;d&#34;: &#34;...&#34;,
+          &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad&#34;
+        }
+      }
+    }
+    &gt;&gt;&gt; d = build(b.id, b.ids, cache, b.hosh.ø)
+    &gt;&gt;&gt; d.show(colored=False)  # doctest:+ELLIPSIS
+    {
+        &#34;d&#34;: &#34;→(↑)&#34;,
+        &#34;y&#34;: &#34;→(↑)&#34;,
+        &#34;_id&#34;: &#34;...&#34;,
+        &#34;_ids&#34;: {
+            &#34;d&#34;: &#34;...&#34;,
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;
+        }
+    }
+    &gt;&gt;&gt; d.evaluated.show(colored=False)  # doctest:+ELLIPSIS
+    {
+        &#34;d&#34;: {
+            &#34;x&#34;: 5,
+            &#34;_id&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;,
+            &#34;_ids&#34;: {
+                &#34;x&#34;: &#34;GS_cb0fda15eac732cb08351e71fc359058b93bd&#34;
+            }
+        },
+        &#34;y&#34;: 7,
+        &#34;_id&#34;: &#34;...&#34;,
+        &#34;_ids&#34;: {
+            &#34;d&#34;: &#34;...&#34;,
+            &#34;y&#34;: &#34;WK_6ba95267cec724067d58b3186ecbcaa4253ad (content: 3m_131910d18a892d1b64285250092a4967c8065)&#34;
+        }
+    }
+    &gt;&gt;&gt; (a.hosh ** b&#34;d&#34;).show(colored=False)
+    I0_dac96298c4c5bf8cb0cde8d8eb3e4a78ca1af
+    &#34;&#34;&#34;
+    from idict.core.frozenidentifieddict import FrozenIdentifiedDict
+
+    if include_blobs:
+        raise NotImplementedError
+    hosh = identity * id
+    data, hashes, hoshes = {}, {}, {}
+    for k, fid in ids.items():
+        # REMINDER: An item id will never start with &#39;_&#39;. That only happens with singleton-idict id translated to cache.
+        if fid in cache:
+            value = get_following_pointers(fid, cache)
+            # WARN: The closures bellow assume items will not be removed from &#39;cache&#39; in the meantime.
+            if isinstance(value, dict) and list(value.keys()) == [&#34;_id&#34;, &#34;_ids&#34;]:
+                closure = lambda value_: lambda **kwargs: build(value_[&#34;_id&#34;], value_[&#34;_ids&#34;], cache, identity)
+                data[k] = LazyVal(k, closure(value), {&#34;↑&#34;: None}, {}, None)
+            else:
+                closure = lambda fid_: lambda **kwargs: cache[fid_]
+                data[k] = LazyVal(k, closure(fid), {&#34;↑&#34;: None}, {}, None)
+        else:  # pragma: no cover
+            raise Exception(f&#34;Missing key={fid} or singleton key=_{fid[1:]}.\n{json.dumps(cache, indent=2)}&#34;)
+        hoshes[k] = identity * fid
+        if fid[2] == &#34;_&#34;:
+            hashes[k] = hoshes[k] // k.encode()
+
+    internals = dict(blobs={}, hashes=hashes, hoshes=hoshes, hosh=hosh)
+    return FrozenIdentifiedDict(data, identity=identity, _cloned=internals)</code></pre>
+</details>
+</dd>
+<dt id="idict.persistence.cached.cached"><code class="name flex">
+<span>def <span class="ident">cached</span></span>(<span>d, cache) ‑> ldict.core.base.AbstractLazyDict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Store each value (fid: value) and an extra value containing the fids (did: {"_id": did, "_ids": fids}).
+When the dict is a singleton, we have to use id² as dict id to workaround the ambiguity did=fid.</p>
+<p>Lock the id during the job, to avoid duplicate jobs in a distributed system, if supported by the provided cache.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cached(d, cache) -&gt; AbstractLazyDict:
+    &#34;&#34;&#34;
+    Store each value (fid: value) and an extra value containing the fids (did: {&#34;_id&#34;: did, &#34;_ids&#34;: fids}).
+    When the dict is a singleton, we have to use id² as dict id to workaround the ambiguity did=fid.
+
+    Lock the id during the job, to avoid duplicate jobs in a distributed system, if supported by the provided cache.
+    &#34;&#34;&#34;
+    # TODO: gravar hashes como aliases no cache pros hoshes. tb recuperar. [serve p/ poupar espaço. e tráfego se usar duplo cache local-remoto]
+    #  mas hash não é antecipável! &#39;cached&#39; teria de fazer o ponteiro: ho -&gt; {&#34;_id&#34;: &#34;. . .&#34;}.  aproveitar pack() para guardar todo valor assim.
+    from idict.core.idict_ import Idict
+    from idict.core.frozenidentifieddict import FrozenIdentifiedDict
+
+    # TODO (minor): do the same for fetch(). useful in the future if needed to speedup syncing of caches avoiding *pack
+    store = storeblob_func(cache, d.blobs) if hasattr(cache, &#34;setblob&#34;) else storevalue_func(cache)
+    front_id = &#34;_&#34; + d.id[1:]
+
+    def closure(outputf, fid, fids, data, output_fields, id):
+        def func(**kwargs):
+            # Try loading.
+            if fid in cache:
+                return get_following_pointers(fid, cache)
+
+            # Lock the id for this job.
+            if hasattr(cache, &#34;lock&#34;):
+                if (t := cache.lockid(fid)) is not None:
+                    raise LockedEntryException(f&#34;There is already a job producing the data {fid}, since {t}.&#34;)
+
+            # Process and save (all fields, to avoid a parcial idict being stored).
+            k = None
+            for k, v in fids.items():
+                if isinstance(data[k], LazyVal):
+                    data[k] = data[k](**kwargs)
+                if isinstance(data[k], (FrozenIdentifiedDict, Idict)):
+                    cache[v] = {&#34;_id&#34;: &#34;_&#34; + data[k].id[1:]}
+                    data[k] = cached(data[k], cache)
+                elif k not in cache:
+                    store(k, v, data[k])
+            if (result := data[outputf]) is None:  # pragma: no cover
+                if k is None:
+                    raise Exception(f&#34;No ids&#34;)
+                raise Exception(f&#34;Key {k} not in output fields: {output_fields}. ids: {fids.items()}&#34;)
+
+            front_id_ = front_id
+            if hasattr(cache, &#34;user_hosh&#34;):
+                # print(&#34;has hosh&#34;, d.id)
+                if front_id_ not in cache:
+                    cache[front_id_] = {&#34;_id&#34;: id, &#34;_ids&#34;: {k: v for k, v in fids.items() if not k.startswith(&#34;_&#34;)}}
+                front_id_ = (d.id * cache.user_hosh).id
+            cache[front_id_] = {&#34;_id&#34;: id, &#34;_ids&#34;: fids}
+
+            # Unlock id.
+            if hasattr(cache, &#34;unlock&#34;):
+                cache.unlockid(fid)
+            return result
+
+        return func
+
+    data = d.data.copy()
+    lazies = False
+    output_fields = []
+    for field, v in list(data.items()):
+        if isinstance(v, LazyVal):
+            # REMINDER: Check removed because metafield values recovered from cache are lazy.
+            # if field.startswith(&#34;_&#34;):  # pragma: no cover
+            #     raise Exception(&#34;Cannot have a lazy value in a metafield.&#34;, field)
+            output_fields.append(field)
+            lazies = True
+            id = d.hashes[field].id if field in d.hashes else d.hoshes[field].id
+            deps = {&#34;↑&#34;: None}
+            deps.update(v.deps)
+            lazy = LazyVal(field, closure(field, id, d.ids, d.data, output_fields, d.id), deps, data, None)
+            data[field] = lazy
+
+    # Eager saving when there are no lazies.
+    if not lazies:
+        for k, fid in d.ids.items():
+            if fid not in cache:
+                if isinstance(data[k], (FrozenIdentifiedDict, Idict)):
+                    cache[fid] = {&#34;_id&#34;: &#34;_&#34; + data[k].id[1:]}
+                    data[k] = cached(data[k], cache)
+                else:
+                    store(k, fid, data[k])
+        if front_id not in cache:
+            if hasattr(cache, &#34;user_hosh&#34;):
+                cache[front_id] = {&#34;_id&#34;: d.id, &#34;_ids&#34;: {k: v for k, v in d.ids.items() if not k.startswith(&#34;_&#34;)}}
+                front_id = (d.id * cache.user_hosh).id
+            cache[front_id] = {&#34;_id&#34;: d.id, &#34;_ids&#34;: d.ids}
+
+    return d.clone(data)</code></pre>
+</details>
+</dd>
+<dt id="idict.persistence.cached.get_following_pointers"><code class="name flex">
+<span>def <span class="ident">get_following_pointers</span></span>(<span>fid, cache)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fetch item value from cache following pointers</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_following_pointers(fid, cache):
+    &#34;&#34;&#34;Fetch item value from cache following pointers&#34;&#34;&#34;
+    result = cache[fid]
+    while isinstance(result, dict) and list(result.keys()) == [&#34;_id&#34;]:
+        result = cache[result[&#34;_id&#34;]]
+    return result</code></pre>
+</details>
+</dd>
+<dt id="idict.persistence.cached.storeblob_func"><code class="name flex">
+<span>def <span class="ident">storeblob_func</span></span>(<span>cache, blobs)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def storeblob_func(cache, blobs):
+    def f(k, id, value):
+        if k in blobs:
+            cache.setblob(id, blobs[k])
+        else:
+            cache[id] = value
+
+    return f</code></pre>
+</details>
+</dd>
+<dt id="idict.persistence.cached.storevalue_func"><code class="name flex">
+<span>def <span class="ident">storevalue_func</span></span>(<span>cache)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def storevalue_func(cache):
+    def f(k, id, value):
+        cache[id] = value
+
+    return f</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="idict.persistence.cached.LockedEntryException"><code class="flex name class">
+<span>class <span class="ident">LockedEntryException</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Common base class for all non-exit exceptions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LockedEntryException(Exception):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>builtins.Exception</li>
+<li>builtins.BaseException</li>
+</ul>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="idict.persistence" href="index.html">idict.persistence</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="idict.persistence.cached.build" href="#idict.persistence.cached.build">build</a></code></li>
+<li><code><a title="idict.persistence.cached.cached" href="#idict.persistence.cached.cached">cached</a></code></li>
+<li><code><a title="idict.persistence.cached.get_following_pointers" href="#idict.persistence.cached.get_following_pointers">get_following_pointers</a></code></li>
+<li><code><a title="idict.persistence.cached.storeblob_func" href="#idict.persistence.cached.storeblob_func">storeblob_func</a></code></li>
+<li><code><a title="idict.persistence.cached.storevalue_func" href="#idict.persistence.cached.storevalue_func">storevalue_func</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="idict.persistence.cached.LockedEntryException" href="#idict.persistence.cached.LockedEntryException">LockedEntryException</a></code></h4>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
